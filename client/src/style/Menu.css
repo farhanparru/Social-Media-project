@@ -1,0 +1,66 @@
+.header {
+    padding: 10px 20px; /* Add padding */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow */
+  }
+  
+  nav {
+    background-color: #333; /* Set background color */
+    padding: 10px; /* Add padding */
+    border-radius: 5px; /* Add rounded corners */
+  }
+  
+  .navbar {
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space between items */
+    align-items: center; /* Center items vertically */
+  }
+  
+  .navbar-brand {
+    font-size: 24px; /* Set font size */
+    font-weight: bold; /* Set font weight */
+    color: #fff; /* Set text color */
+    text-decoration: none; /* Remove default underline */
+    transition: color 0.3s ease; /* Add transition effect */
+  }
+  
+  .navbar-brand:hover {
+    color: #bbb; /* Change text color on hover */
+  }
+  
+  .uppercase {
+    text-transform: uppercase; /* Convert text to uppercase */
+  }
+  
+  .nav-link {
+    color: #fff; /* Set link color */
+    text-decoration: none; /* Remove default underline */
+    padding: 8px 12px; /* Add padding */
+    border-radius: 5px; /* Add rounded corners */
+    transition: background-color 0.3s ease; /* Add transition effect */
+  }
+  
+  .nav-link:hover {
+    background-color: #555; /* Change background color on hover */
+    animation: bounce 0.4s ease; /* Add bounce animation on hover */
+  }
+  
+  @keyframes bounce {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  .bg-light {
+    background-color: #f8f9fa !important; /* Override bootstrap bg-light class */
+  }
+  
+  .search-container {
+    margin-right: 20px; /* Add space to the right of the search component */
+  }
+  
