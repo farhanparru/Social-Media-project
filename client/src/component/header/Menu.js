@@ -6,6 +6,7 @@ import { logout } from "../../redux/actions/authAction";
 import { FiSun, FiMoon } from "react-icons/fi"; 
 import { GLOBALTYPES } from "../../redux/actions/globalTypes";
 import Avatar from '../Avatar'
+import New from "../New";
 
 
 const Menu = () => {
@@ -74,6 +75,7 @@ const Menu = () => {
               Logout
             </Link>
           </div>
+        
         </li>
       </ul>
     </div>

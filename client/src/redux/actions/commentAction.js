@@ -1,10 +1,9 @@
-import { GLOBALTYPES } from "./globalTypes";
+import { EditData, GLOBALTYPES ,DeleteData} from "./globalTypes";
 import { POST_TYPES } from "./postAction";
-import { postDataAPI } from "../../utlis/fetchData";
+import { postDataAPI,patchDataAPI } from "../../utlis/fetchData";
 
-export const createComment = (post,newComment,auth) => async (dispatch) =>{
+export const createComment = ({post,newComment,auth}) => async (dispatch) =>{
   const newPost = {...post, comments:[...post.comments, newComment]}
-  
   dispatch({type:POST_TYPES.UPDATE_POST,payload:newPost})
 
   try {
@@ -20,4 +19,55 @@ export const createComment = (post,newComment,auth) => async (dispatch) =>{
     dispatch({type:GLOBALTYPES.ALERT, payload: {error:err.response.data.msg}})    
   }
   
+}
+
+export const updateComment = ({comment,post,content,auth}) => async (dispatch)=>{
+     const newComment = EditData(post.comments, comment._id,{...comment,content})
+     const newPost = {...post, comments: newComment}
+  
+     dispatch({type: POST_TYPES.UPDATE_POST,payload: newPost})
+
+     try {
+      patchDataAPI(`comment/${comment._id}`,{content},auth.token)
+     } catch (err) {
+      dispatch({type:GLOBALTYPES.ALERT, payload: {error:err.response.data.msg}})   
+     }
+}
+
+export const likeComment = ({comment,post,auth}) => async (dispatch) =>{
+  const newComment = {...comment, likes: [...comment.likes, auth.user]}
+
+  const newComments = EditData(post.comments, comment._id,newComment)
+
+  const newPost = {...post, comments: newComments}
+
+  dispatch({type: POST_TYPES.UPDATE_POST,payload: newPost})
+
+  try {
+    await patchDataAPI(`comment/${comment._id}/like`,null,auth.token)
+    
+  } catch (err) {
+    dispatch({type:GLOBALTYPES.ALERT, payload: {error:err.response.data.msg}})   
+  }
+
+
+
+}
+
+
+export const unLikeComment = ({comment,post,auth}) => async (dispatch) =>{
+  const newComment = {...comment, likes: DeleteData(comment.likes, auth.user._id)}
+
+  const newComments = EditData(post.comments, comment._id,newComment)
+
+  const newPost = {...post, comments: newComments}
+
+  dispatch({type: POST_TYPES.UPDATE_POST,payload: newPost})
+
+
+  try {
+    await patchDataAPI(`comment/${comment._id}/unLike`,null,auth.token)
+  } catch (err) {
+    dispatch({type:GLOBALTYPES.ALERT, payload: {error:err.response.data.msg}})   
+  }
 }

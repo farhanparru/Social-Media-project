@@ -5,23 +5,21 @@ import {useSelector,useDispatch} from 'react-redux'
 import moment from 'moment'
 import {GLOBALTYPES} from '../../../redux/actions/globalTypes'
 
+
 const CardHeader = ({post}) => {
 const {auth} = useSelector(state => state)
 const dispatch = useDispatch()
 
 
  const handleEditPost = () =>{
-   
      dispatch({type:GLOBALTYPES.STATUS,payload:{...post,onEdit:true}})
  }
-
 
 
   return (
     <div className='card_header'>
       <div className='d-flex'>
       <Avatar src={post.user.avatar} size="big-avatar" />
-
       <div className='card_name'>
        <h6 className='m-0'>
          <Link to={`/profile/${post.user._id}`} className='text-dark'>
@@ -55,6 +53,7 @@ const dispatch = useDispatch()
             </div>
         </div>
       </div>
+     
     </div>
   )
 }

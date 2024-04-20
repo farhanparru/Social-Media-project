@@ -16,7 +16,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { refreshToken } from './redux/actions/authAction';
 import Profile from '../src/pages/profile/[id]'
 import { getPosts } from './redux/actions/postAction';
-import New from './component/New';
+
 
 function App() {
   const { auth ,status,modal} = useSelector(state => state);
@@ -40,7 +40,6 @@ function App() {
         <div className='main'>
           {auth.token && <Header />}
           {status && <StatusModal/>}
-         
           <Routes>
             <Route path='/message' element={<PrivateRoute Component={Message} />} />
             <Route path='/discover' element={<PrivateRoute Component={Discover} />} />
@@ -51,7 +50,6 @@ function App() {
             <Route exact path='/forgotpassword/:id/:token' element={<ForgotPassword />} />
             <Route path='/:page' element={<PageRender/>} />
             <Route path="/page/:id" element={<PageRender />} />
-
           </Routes>
         </div>
       </div>
