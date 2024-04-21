@@ -25,12 +25,14 @@ const Profile = () => {
   return (
     <div className='profile'>
    
+     
+       <Info auth={auth} profile={profile} dispatch={dispatch} id={id} />
     {
       profile.loading
       ? <img  className='d-block mx-auto my-4' src={LodingIcon} alt='loading'/>  
-      : <Info auth={auth} profile={profile} dispatch={dispatch} id={id} />
+      :  <Posts auth={auth} profile={profile} dispatch={dispatch} id={id}/>
     }
-     <Posts auth={auth} profile={profile} dispatch={dispatch} id={id}/>
+    
     </div>
   )
 }
