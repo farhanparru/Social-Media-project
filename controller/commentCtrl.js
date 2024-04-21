@@ -1,77 +1,111 @@
-const Comments = require('../models/commentModel')
-const Posts = require('../models/postModel')
-
+const Comments = require("../models/commentModel");
+const Posts = require("../models/postModel");
 
 const commentCtrl = {
-    createComment : async (req,res) =>{
-        try {
-            const {postId ,  content ,tag , reply } = req.body
-         
-            const newComment = new Comments({
-                user: req.user._id, content, tag,reply
-            })
+  createComment: async (req, res) => {
+    try {
+      const { postId, content, tag, reply,postUserId } = req.body;
 
-            console.log(newComment);
-            await Posts.findOneAndUpdate({_id: postId},{
-                 $push:{comments: newComment._id}
-              },{new: true})
+      const newComment = new Comments({
+        user: req.user._id,
+        content,
+        tag,
+        reply,
+        postUserId,
+        postId
+      });
 
-              await newComment.save()
-              res.json({newComment})
-          
-        } catch (err) {
-            return res.status(500).json({msg: err.message})
-        }
-    },
+     
+      await Posts.findOneAndUpdate(
+        { _id: postId },
+        {
+          $push: { comments: newComment._id },
+        },
+        { new: true }
+      );
 
-    updateComment : async (req,res) =>{
-        try {
-           const {content} = req.body
+      await newComment.save();
+      res.json({ newComment });
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
 
-       await Comments.findByIdAndUpdate({
-            _id: req.params.id, user: req.user._id
-           },{content})
+  updateComment: async (req, res) => {
+    try {
+      const { content } = req.body;
 
-           
+      await Comments.findByIdAndUpdate(
+        {
+          _id: req.params.id,
+          user: req.user._id,
+        },
+        { content }
+      );
 
-           res.json({msg:"update Success!"})
-          
-        } catch (err) {
-        
-        }
-    },
-    likeComment: async (req,res) =>{
+      res.json({ msg: "update Success!" });
+    } catch (err) {}
+  },
+  likeComment: async (req, res) => {
+    const comment = await Comments.find({
+      _id: req.params.id,
+      likes: req.user._id,
+    });
+    if (comment.length > 0)
+      return res.status(400).json({ msg: "You liked this post" });
+    try {
+      await Comments.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          $push: { likes: req.user._id },
+        },
+        { new: true }
+      );
 
-        const comment = await Comments.find({_id:req.params.id, likes: req.user._id})
-        if(comment.length > 0) return res.status(400).json({msg:"You liked this post"})
-        try {
-          await Comments.findOneAndUpdate({_id:req.params.id},{
-             $push:{likes: req.user._id}
-          },{new:true})
+      res.json({ msg: "Liked Comment!" });
+    } catch (error) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
+
+  unLikeComment: async (req, res) => {
+    try {
+      await Comments.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          $pull: { likes: req.user._id },
+        },
+        { new: true }
+      );
+
+      res.json({ msg: "unLiked Comment!" });
+    } catch (error) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
+
+  deleteComment: async (req,res) =>{
+    try {
+
+      const comment = await Comments.findOneAndDelete({
+        _id: req.params.id,
+        $or:[
+          {user: req.user._id},
+          {postUserId: req.user._id}
+        ]
+      })
       
-          res.json({msg: 'Liked Comment!'})
-      
-        } catch (error) {
-          return res.status(500).json({msg:err.message})
-        }
-      },
-      
-      unLikeComment: async (req,res) =>{
-      
-        try {
-          await Comments.findOneAndUpdate({_id:req.params.id},{
-             $pull:{likes: req.user._id}
-          },{new:true})
-      
-          res.json({msg: 'unLiked Comment!'})
-      
-        } catch (error) {
-          return res.status(500).json({msg:err.message})
-        }
-      },
+  
+    await Posts.findOneAndUpdate({_id:comment.postId},{
+      $pull:{comments:req.params.id}
+    })
 
+    res.json({msg:"Delete Comment!"})
 
+    } catch (error) {
+      return res.status(500).json({msg: err.mrssage})
+    }
+  }
+};
 
-}
-
-module.exports = commentCtrl
+module.exports = commentCtrl;

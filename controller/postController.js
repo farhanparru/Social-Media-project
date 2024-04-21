@@ -104,6 +104,19 @@ unLikePost: async (req,res) =>{
   }
 },
 
+getUserPost : async( req,res) =>{
+  try {
+    
+ const posts = await Posts.find({user: req.params.id}).sort('-createdAt')
+  res.json({
+    posts,
+    result: posts.length
+  })
+
+  } catch (error) {
+    return res.status(500).json({msg:err.message})
+  }
+}
 
 
 

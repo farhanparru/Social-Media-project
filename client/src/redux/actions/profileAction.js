@@ -3,39 +3,46 @@ import {getDataAPI,patchDataAPI} from  '../../utlis/fetchData'
 import {imageUpload} from '../../utlis/imageUpload'
 
 export const PROFILE_TYPES = {
-    LOADING:'LOADING',
-    GET_USER:'GET_USER',
+    LOADING:'LOADING_PROFILE',
+    GET_USER:'GET_PROFILE_USER',
     FOLLOW:'FOLLOW',
     UNFOLLOW:'UNFOLLOW',
+    GET_ID:'GET_PROFILE_ID',
+    GET_POSTS:'GET_PROFILE_POSTS'
    
 }   
 
 export const getProfileUsers = ({users,id,auth}) => async (dispatch)=>{
-    // console.log({users,id,auth});
+   
+    dispatch({type: PROFILE_TYPES.GET_ID,payload:id })
 
-     if(users.every(user => user._id !== id)){
          try{
-
-           dispatch({type:PROFILE_TYPES.LOADING,payload:true})
-           const res = await getDataAPI(`/user/${id}`, auth.token);
+            dispatch({type: PROFILE_TYPES.LOADING, payload: true})
+           const res =  getDataAPI(`/user/${id}`, auth.token);
+           const res1 = getDataAPI(`/user_posts/${id}`, auth.token);
            
-        //    console.log(res);
+           const users = await res;
+           const posts = await res1;
 
            dispatch({  
             type: PROFILE_TYPES.GET_USER,
-            payload:res.data    
+            payload:users.data    
+        })
+
+        dispatch({  
+            type: PROFILE_TYPES.GET_POSTS,
+            payload:{...posts.data, _id: id, page: 2}        
         })
 
         dispatch({type:PROFILE_TYPES.LOADING,payload:false})
          }catch(err){
-        console.log(err);
             dispatch({
             type:GLOBALTYPES.ALERT,
              payload:{error:err.response.data.msg}
             });
             
          }
-     }
+     
 }
 
 

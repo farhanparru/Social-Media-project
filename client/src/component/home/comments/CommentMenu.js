@@ -1,19 +1,29 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteComment } from "../../../redux/actions/commentAction";
+const CommentMenu = ({ post, comment, setOnEdit }) => {
+  const dispatch = useDispatch();
+  const { auth } = useSelector((state) => state);
 
-const CommentMenu = ({ post, comment, auth ,setOnEdit}) => {
+  const handleRemove = () => {
+    if(post.user._id === auth.user._id || comment.user._id === auth.user._id){
+      dispatch(deleteComment({ post, auth, comment }));
+    }
+   
+  };
 
- const MenuItem =()=>{
-    return(
-        <>
-            <div className="dropdown-item" onClick={() => setOnEdit(true)}>
-            <span className="material-icons" >create</span> Edit
-            </div>
-            <div className="dropdown-item">
-            <span className="material-icons" >delete_outline</span> Remove
-            </div>
-        </>
-    )
- }
+  const MenuItem = () => {
+    return (
+      <>
+        <div className="dropdown-item" onClick={() => setOnEdit(true)}>
+          <span className="material-icons">create</span> Edit
+        </div>
+        <div className="dropdown-item" onClick={handleRemove}>
+          <span className="material-icons">delete_outline</span> Remove
+        </div>
+      </>
+    );
+  };
 
   return (
     <div className="menu">
@@ -24,18 +34,18 @@ const CommentMenu = ({ post, comment, auth ,setOnEdit}) => {
             more_vert
           </span>
 
-
           <div className="dropdown-menu" aria-labelledby="moreLink">
-          {
-            post.user._id === auth.user._id
-            ? comment.user._id === auth.user._id
-            ?MenuItem()
-            : <div className="dropdown-item">
-            <span className="material-icons" >delete_outline</span> Remove
-            </div>
-            :comment.user._id === auth.user._id && MenuItem()
-          }
-
+            {post.user._id === auth.user._id ? (
+              comment.user._id === auth.user._id ? (
+                MenuItem()
+              ) : (
+                <div className="dropdown-item" onClick={handleRemove}>
+                  <span className="material-icons">delete_outline</span> Remove
+                </div>
+              )
+            ) : (
+              comment.user._id === auth.user._id && MenuItem()
+            )}
           </div>
         </div>
       )}
