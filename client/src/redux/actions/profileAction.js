@@ -8,11 +8,12 @@ export const PROFILE_TYPES = {
     FOLLOW:'FOLLOW',
     UNFOLLOW:'UNFOLLOW',
     GET_ID:'GET_PROFILE_ID',
-    GET_POSTS:'GET_PROFILE_POSTS'
+    GET_POSTS:'GET_PROFILE_POSTS',
+    UPDATE_POST:'UPDATE_PROFILE_POST'
    
 }   
 
-export const getProfileUsers = ({users,id,auth}) => async (dispatch)=>{
+export const getProfileUsers = ({id,auth}) => async (dispatch)=>{
    
     dispatch({type: PROFILE_TYPES.GET_ID,payload:id })
 
@@ -118,7 +119,7 @@ try{
          payload:{error:err.response.data.msg}
         });
       }
-    }  
+}  
 
 
 export const unfollow = ({users,user,auth}) => async (dispatch) =>{
@@ -152,4 +153,4 @@ export const unfollow = ({users,user,auth}) => async (dispatch) =>{
                   payload:{error:err.response.data.msg}
                  });
               }
-           }  
+}  

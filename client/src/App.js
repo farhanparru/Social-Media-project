@@ -16,6 +16,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { refreshToken } from './redux/actions/authAction';
 import Profile from '../src/pages/profile/[id]'
 import { getPosts } from './redux/actions/postAction';
+import Post from './pages/posts/[id]';
 
 
 function App() {
@@ -50,6 +51,8 @@ function App() {
             <Route exact path='/forgotpassword/:id/:token' element={<ForgotPassword />} />
             <Route path='/:page' element={<PageRender/>} />
             <Route path="/page/:id" element={<PageRender />} />
+            
+            <Route path='/post/:id' element={<Post/>} />
           </Routes>
         </div>
       </div>

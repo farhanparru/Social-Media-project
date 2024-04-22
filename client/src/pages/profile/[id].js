@@ -16,10 +16,10 @@ const Profile = () => {
 
  useEffect(()=>{
   if(profile.ids.every(item => item !== id)){
-    dispatch(getProfileUsers({users:profile.users,id,auth}))
+    dispatch(getProfileUsers({id,auth}))
   }
   
- },[id,profile.users, auth,dispatch])
+ },[id, auth,dispatch,profile.ids])
 
 
   return (
