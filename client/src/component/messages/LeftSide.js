@@ -67,7 +67,9 @@ const handleAdduser = (user) =>{
          message.users.map(user =>(
             <div key={user._id} className='message_user'
                 onClick={() => handleAdduser(user)}>
-                <UserCard user={user}/>
+                <UserCard user={user}>
+                <i className='fas fa-circle' />
+                </UserCard>
                 </div>
          ))
        }

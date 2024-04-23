@@ -149,7 +149,7 @@ getUserPost : async( req,res) =>{
     result: posts.length
   })
 
-  } catch (error) {
+  } catch (err) {
     return res.status(500).json({msg:err.message})
   }
 },

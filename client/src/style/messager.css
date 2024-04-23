@@ -27,4 +27,26 @@
 }
 
 
+.message_chat_list{
+    width: 100%;
+    height: calc(100% -60px);
+    overflow-y: auto;
+
+}
+
+.message_chat_list .message_user{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    border: 1px solid #f3f3f3;
+    color: #555;
+    cursor: pointer;
+}
+
+.message_chat_list .message_user:hover{
+    text-decoration: none;
+}
+
+
 
