@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PageRender from './customRoute/pageRender';
 import PrivateRoute from './customRoute/PrivateRouter';
-import Message from './pages/message';
+import Message from './pages/messages';
 import Discover from './pages/discover'
 import Notify from './pages/notify'
 import Home from './pages/Home';
@@ -17,6 +17,9 @@ import { refreshToken } from './redux/actions/authAction';
 import Profile from '../src/pages/profile/[id]'
 import { getPosts } from './redux/actions/postAction';
 import Post from './pages/posts/[id]';
+import {getSuggestions} from './redux/actions/suggessionsActions';
+import {ToastContainer} from 'react-toastify'
+import Coversation from './pages/messages/[id]';
 
 
 function App() {
@@ -30,7 +33,10 @@ function App() {
 
 
   useEffect(()=>{
-    if(auth.token) dispatch(getPosts(auth.token))
+    if(auth.token){
+      dispatch(getPosts(auth.token))
+      dispatch(getSuggestions(auth.token))
+    }
   },[dispatch,auth.token])
 
   return (
@@ -51,11 +57,14 @@ function App() {
             <Route exact path='/forgotpassword/:id/:token' element={<ForgotPassword />} />
             <Route path='/:page' element={<PageRender/>} />
             <Route path="/page/:id" element={<PageRender />} />
+            <Route path='/message/:id' element={<Coversation/>}/>
             
             <Route path='/post/:id' element={<Post/>} />
           </Routes>
+          <ToastContainer />
         </div>
       </div>
+      
     </Router>
   );
 }
