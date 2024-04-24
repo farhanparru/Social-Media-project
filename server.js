@@ -26,6 +26,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/SocialPulse", {
  app.use('/api',require('./router/userRoute'))
  app.use('/api',require('./router/postRouter'))
  app.use('/api',require('./router/commentRouter'))
+ app.use('/api',require('./router/messageRouter'))
 
 
   const port = process.env.PORT || 4000

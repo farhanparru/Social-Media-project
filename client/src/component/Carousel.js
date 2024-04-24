@@ -26,20 +26,27 @@ const Carousel = ({images,id}) => {
   {
     images.map((img,index)=>(
       <div key={index} class={`carousel-item ${isActive(index)}`}>
-      <img class="d-block w-100" src={img.url} alt={img.url}
-        style={{filter:theme ? 'invert(1)' :'invert(0)'}}
-      />
+      {
+         img.url.match(/video/i)
+         ? <video controls class="d-block w-100" src={img.url} alt={img.url}
+        style={{filter:theme ? 'invert(1)' :'invert(0)'}} />
+         :<img class="d-block w-100" src={img.url} alt={img.url}
+        style={{filter:theme ? 'invert(1)' :'invert(0)'}}/>
+      }
+    
     </div>
     ))
   }
    
     
   </div>
-  <a class="carousel-control-prev" href={`#images${id}`}  role="button" data-slide="prev">
+  <a class="carousel-control-prev" href={`#images${id}`}  role="button" data-slide="prev"
+   style={{width:'5%'}}>
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="sr-only">Previous</span>
   </a>
-  <a class="carousel-control-next" href={`#images${id}`}  role="button" data-slide="next">
+  <a class="carousel-control-next" href={`#images${id}`}  role="button" data-slide="next"
+  style={{width:'5%'}}>
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>

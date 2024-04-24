@@ -6,11 +6,11 @@ import Comment from './home/Comments'
 import InputComment from './InputComment'
 
 
-const PostCard = ({post}) => {
+const PostCard = ({post,theme}) => {
   return (
     <div className='card my-3'>
        <CardHeader post={post}/>
-       <CardBody post={post}/>
+       <CardBody post={post} theme={theme}/>
        <CardFooter post={post}/>
 
        <Comment post={post}/>

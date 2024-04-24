@@ -3,7 +3,7 @@ import UserCard from '../UserCard'
 import { useSelector,useDispatch} from 'react-redux'
 import { GLOBALTYPES } from '../../redux/actions/globalTypes'
 import { getDataAPI } from '../../utlis/fetchData'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { addUser } from '../../redux/actions/messageActions'
 
 const LeftSide = () => {
@@ -13,6 +13,7 @@ const dispatch = useDispatch()
 const [search, setSearch] = useState('')
 const [searchUsers, setSearchUsers] = useState([])
 const navigate = useNavigate()
+const {id} = useParams()
 
 const handleSearch = async e =>{
     e.preventDefault()
@@ -37,10 +38,15 @@ const handleAdduser = (user) =>{
      return navigate(`/message/${user._id}`)
 }
 
+const isActive = (user)=>{
+  if(id === user._id) return 'active';
+  return
+}
+
 
   return (
     <>
-      <form className='message_header' onClick={handleSearch}>
+      <form className='message_header' onSubmit={handleSearch}>
       <input type='text' 
        value={search}
         placeholder='Enter to Search...!'
@@ -54,7 +60,7 @@ const handleAdduser = (user) =>{
         ? <>
           {
             searchUsers.map(user => (
-                <div key={user._id} className='message_user'
+                <div key={user._id} className={`message_user ${isActive(user)}`}
                 onClick={() => handleAdduser(user)}>
                 <UserCard user={user}/>
                 </div>
@@ -65,9 +71,9 @@ const handleAdduser = (user) =>{
        :<>
        {
          message.users.map(user =>(
-            <div key={user._id} className='message_user'
+            <div key={user._id} className={`message_user ${isActive(user)}`}
                 onClick={() => handleAdduser(user)}>
-                <UserCard user={user}>
+                <UserCard user={user} msg={true}>
                 <i className='fas fa-circle' />
                 </UserCard>
                 </div>
