@@ -7,7 +7,7 @@ import { GLOBALTYPES } from '../../redux/actions/globalTypes'
 import { imageShow,videoShow } from '../../utlis/mediaShow'
 import { imageUpload } from '../../utlis/imageUpload'
 import Icons from '../../component/icons'
-import { addMessage } from '../../redux/actions/messageActions'
+import { addMessage,getMessages } from '../../redux/actions/messageActions'
 import LoadIcon from  '../../images/loading.gif'
 
 const RightSidebar = () => {
@@ -20,12 +20,15 @@ const [text,setText] = useState('')
 const [media,setMedia]  = useState([])
 const [loadMedia, setLoadMedia] = useState(false)
 
-useEffect(()=>{
-  const newUser = message.users.find(user => user._id === id)
-  if(newUser){
-    setUser(newUser)
-  }
-},[ message.users,id])
+// useEffecte here a code
+
+ useEffect(()=>{
+   const newUser = message.users.find(user => user._id === id)
+   if(newUser){
+     setUser(newUser)
+   }
+ },[message.users,id])
+
 
 
 const handleChangeMedia = (e) =>{
@@ -76,17 +79,23 @@ const handleSubmit = async(e) =>{
   dispatch(addMessage({msg,auth, socket}))
 }
 
+useEffect(()=>{
+  if(id){
+    const getMessagesData = async () =>{
+      await dispatch(getMessages({auth,id}))
+    }
+    getMessagesData()
+  }
+},[id,dispatch,auth])
+
 
 
   return (
     <>
     <div className='message_header'>
-    {
-       user.length !== 0 &&
-       <UserCard user={user}>
-      <i  className='fas fa-trash text-danger'/>
-      </UserCard>
-    }
+     <UserCard user={user}>
+      <i className='fas fa-trash text-danger' />
+     </UserCard>
      
     </div>
 
@@ -97,7 +106,7 @@ const handleSubmit = async(e) =>{
        message.data.map((msg, index)=>(
          <div key={index}>
           {
-            msg.sender !== auth.user._id &&
+            msg.sender !== auth.user?._id &&
             <div className='chat_row other_message'>
           <MsgDisplay user={user} msg={msg} theme={theme}/>
           </div>

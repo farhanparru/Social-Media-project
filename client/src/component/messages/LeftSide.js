@@ -1,10 +1,11 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import UserCard from '../UserCard'
 import { useSelector,useDispatch} from 'react-redux'
 import { GLOBALTYPES } from '../../redux/actions/globalTypes'
 import { getDataAPI } from '../../utlis/fetchData'
 import { useNavigate, useParams } from 'react-router-dom'
-import { addUser } from '../../redux/actions/messageActions'
+import { addUser,getConversations } from '../../redux/actions/messageActions'
+
 
 const LeftSide = () => {
 const {auth, message} = useSelector(state => state)
@@ -32,16 +33,23 @@ const handleSearch = async e =>{
 }
 
 const handleAdduser = (user) =>{
-     setSearch('')
-     setSearchUsers([])
-     dispatch(addUser({user, message}))
-     return navigate(`/message/${user._id}`)
+  setSearch('')
+  setSearchUsers([])
+  dispatch(addUser({user, message}))
+  return navigate(`/message/${user._id}`)
+   
 }
 
 const isActive = (user)=>{
   if(id === user._id) return 'active';
   return
 }
+
+
+useEffect(()=>{
+  if(message.firstLoad) return ;
+  dispatch(getConversations({auth}))
+},[dispatch, auth,message.firstLoad])
 
 
   return (
@@ -70,14 +78,15 @@ const isActive = (user)=>{
        </>
        :<>
        {
-         message.users.map(user =>(
-            <div key={user._id} className={`message_user ${isActive(user)}`}
-                onClick={() => handleAdduser(user)}>
-                <UserCard user={user} msg={true}>
-                <i className='fas fa-circle' />
-                </UserCard>
-                </div>
-         ))
+       
+        message.users.map(user =>(
+          <div key={user._id} className= 'message_user'
+           onClick={() => handleAdduser(user)}>
+          <UserCard user={user}  msg={true}/>
+          <i className='fas fa-circle'/>
+            </div>
+        ))
+       
        }
 
        </>

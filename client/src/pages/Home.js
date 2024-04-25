@@ -17,7 +17,7 @@ const {homePosts} = useSelector(state => state)
     <div className='col-md-8'>
 
     <div className="col-md-20 ml-[5 px] mr-4">
-    <New/>
+    {/* <New/> */}
    </div>
     <Status/>
      
