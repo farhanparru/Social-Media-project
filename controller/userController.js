@@ -48,16 +48,16 @@ const userCtrl = {
        const user  = await Users.find({_id:req.params.id,followers:req.user._id})
        if(user.length > 0) return res.status(500).json({msg:"You followed this user."})
 
-       await Users.findByIdAndUpdate({_id: req.params.id},{
+      const newUser =  await Users.findByIdAndUpdate({_id: req.params.id},{
           $push:{followers: req.user._id}
-       },{new:true})
+       },{new:true}).populate("followers following",'-password')
      
 
        await Users.findByIdAndUpdate({_id: req.user._id},{
         $push:{following:req.params.id}
      },{new:true})
 
-     res.json({msg:"Followed Usre"})
+     res.json({newUser})
 
       }catch(err){
         return res.status(500).json({msg:err.message})
@@ -67,16 +67,16 @@ const userCtrl = {
     unfollow: async (req,res)=>{
       try{
       
-       await Users.findByIdAndUpdate({_id: req.params.id},{
+      const newUser = await Users.findByIdAndUpdate({_id: req.params.id},{
           $pull:{followers: req.user._id}
-       },{new:true})
+       },{new:true}).populate("followers following",'-password')
      
 
        await Users.findByIdAndUpdate({_id: req.user._id},{
         $pull:{following:req.params.id}
      },{new:true})
 
-     res.json({msg:"UnFollow Usre"})
+     res.json({newUser})
 
       }catch(err){
         return res.status(500).json({msg:err.message})

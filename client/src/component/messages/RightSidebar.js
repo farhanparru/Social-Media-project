@@ -7,7 +7,7 @@ import { GLOBALTYPES } from '../../redux/actions/globalTypes'
 import { imageShow,videoShow } from '../../utlis/mediaShow'
 import { imageUpload } from '../../utlis/imageUpload'
 import Icons from '../../component/icons'
-import { addMessage,getMessages } from '../../redux/actions/messageActions'
+import { MESS_TYPES, addMessage,getMessages } from '../../redux/actions/messageActions'
 import LoadIcon from  '../../images/loading.gif'
 
 const RightSidebar = () => {
@@ -82,6 +82,7 @@ const handleSubmit = async(e) =>{
 useEffect(()=>{
   if(id){
     const getMessagesData = async () =>{
+      dispatch({type: MESS_TYPES.ADD_MESSAGE, payload: {message: [] } } )
       await dispatch(getMessages({auth,id}))
     }
     getMessagesData()

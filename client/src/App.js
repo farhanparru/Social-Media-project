@@ -22,12 +22,21 @@ import {ToastContainer} from 'react-toastify'
 import Coversation from './pages/messages/[id]';
 
 
+import io from 'socket.io-client'
+import { GLOBALTYPES } from './redux/actions/globalTypes';
+import SocketClint from './SocketClint'
+
+
+
 function App() {
   const { auth ,status,modal} = useSelector(state => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(refreshToken());
+    const socket = io()
+    dispatch({type: GLOBALTYPES.SOCKET, payload: socket})
+    return () => socket.close()
   }, [dispatch]);
 
 
@@ -46,7 +55,8 @@ function App() {
       <div className={`App ${(status || modal) && 'mode'}`}>
         <div className='main'>
           {auth.token && <Header />}
-          {status && <StatusModal/>}
+          {status && <StatusModal/>}  
+          {auth.token && <SocketClint/>}
           <Routes>
             <Route path='/message' element={<PrivateRoute Component={Message} />} />
             <Route path='/discover' element={<PrivateRoute Component={Discover} />} />

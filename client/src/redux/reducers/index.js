@@ -10,6 +10,7 @@ import detailPost from "./deteailPostReducre";
 import discover from "./discoverReducer";
 import suggesions from './suggessionsReducre'
 import message from './messageReducre'
+import socket from "./socketReducre";
 
 export default combineReducers({
   auth,
@@ -22,5 +23,6 @@ export default combineReducers({
   detailPost,
   discover,
   suggesions,
-  message
+  message,
+  socket
 })

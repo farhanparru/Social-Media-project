@@ -3,6 +3,7 @@
   const mongoose = require('mongoose')
   const cors = require('cors')
   const cookieParser = require('cookie-parser')
+  const SocketServer = require('./socketServer')
 
 
 // mongoDb Conncted functions
@@ -20,6 +21,17 @@ mongoose.connect("mongodb://127.0.0.1:27017/SocialPulse", {
   app.use(cors())
   app.use(cookieParser())
 
+ //socket.io 
+ const http = require('http').createServer(app)
+ const io = require('socket.io')(http)
+
+ 
+ io.on('connection', socket => {
+  SocketServer(socket) 
+ })
+
+
+
  //Routres
 
  app.use('/api',require('./router/authRoute'))
@@ -31,6 +43,6 @@ mongoose.connect("mongodb://127.0.0.1:27017/SocialPulse", {
 
   const port = process.env.PORT || 4000
 
-  app.listen(port,()=>{
+  http.listen(port,()=>{
      console.log(`Server is runing on port ,port${port}`);
   })
