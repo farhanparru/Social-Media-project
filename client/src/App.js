@@ -20,6 +20,8 @@ import Post from './pages/posts/[id]';
 import {getSuggestions} from './redux/actions/suggessionsActions';
 import {ToastContainer} from 'react-toastify'
 import Coversation from './pages/messages/[id]';
+import CallModal from './component/messages/CallModal';
+import Peer  from 'peerjs'
 
 
 import io from 'socket.io-client'
@@ -29,7 +31,7 @@ import SocketClint from './SocketClint'
 
 
 function App() {
-  const { auth ,status,modal} = useSelector(state => state);
+  const { auth ,status,modal,call} = useSelector(state => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -48,6 +50,15 @@ function App() {
     }
   },[dispatch,auth.token])
 
+
+
+  useEffect(()=>{
+     const newPeer = new Peer(undefined,{
+      host: '/' , port:'3001'
+     })
+     console.log(newPeer);
+  },[])
+
   return (
     <Router>
       <Alert />
@@ -57,6 +68,7 @@ function App() {
           {auth.token && <Header />}
           {status && <StatusModal/>}  
           {auth.token && <SocketClint/>}
+          {call && <CallModal/>}
           <Routes>
             <Route path='/message' element={<PrivateRoute Component={Message} />} />
             <Route path='/discover' element={<PrivateRoute Component={Discover} />} />

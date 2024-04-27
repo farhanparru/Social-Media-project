@@ -1,14 +1,34 @@
 import React from 'react'
 import Avatar from '../Avatar'
 import { imageShow, videoShow } from '../../utlis/mediaShow'
+import { useSelector, useDispatch } from 'react-redux'
+import { deleteMessages } from '../../redux/actions/messageActions'
 
-const MsgDisplay = ({user, msg, theme}) => {
+const MsgDisplay = ({user, msg, theme, data}) => {
+  const {auth} = useSelector(state => state)
+  const dispatch = useDispatch()
+
+  const handleDeleteMessagee = () =>{
+    if(data){
+       dispatch(deleteMessages({msg, data, auth}))
+    }
+    
+  }
+
+
   return (
     <>
      <div className='chat_title'>
        <Avatar src={user?.avatar} size="small-avatar"/>
        <span>{user?.username}</span>
      </div>
+     <div className='you_content'>
+     {user._id === auth.user._id &&
+      <i className='fas fa-trash text-danger'
+      onClick={handleDeleteMessagee} />
+      }
+    
+     <div>
      {
       msg?.text && 
       <div className='chat_text'
@@ -29,6 +49,10 @@ const MsgDisplay = ({user, msg, theme}) => {
          </div>
       ))
      }
+     </div>
+    
+     </div>
+
 
      <div className='chat_time'>
       {new Date (msg?.createdAt).toLocaleString()}

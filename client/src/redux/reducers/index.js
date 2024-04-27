@@ -11,6 +11,8 @@ import discover from "./discoverReducer";
 import suggesions from './suggessionsReducre'
 import message from './messageReducre'
 import socket from "./socketReducre";
+import call from "./callReducre";
+import peer from './peerReducer'
 
 export default combineReducers({
   auth,
@@ -24,5 +26,7 @@ export default combineReducers({
   discover,
   suggesions,
   message,
-  socket
+  socket,
+  call,
+  peer
 })

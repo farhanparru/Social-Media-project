@@ -4,6 +4,7 @@
   const cors = require('cors')
   const cookieParser = require('cookie-parser')
   const SocketServer = require('./socketServer')
+  const {PeerServer} = require('peer')
 
 
 // mongoDb Conncted functions
@@ -30,6 +31,9 @@ mongoose.connect("mongodb://127.0.0.1:27017/SocialPulse", {
   SocketServer(socket) 
  })
 
+
+ // Create peerServer  (WebRTc)
+ PeerServer({port: 3001, path:'/'})
 
 
  //Routres
