@@ -11,7 +11,7 @@ import { loadMoreMessages, addMessage,getMessages } from '../../redux/actions/me
 import LoadIcon from  '../../images/loading.gif'
 
 const RightSidebar = () => {
-const { auth,message,theme,socket} = useSelector(state => state)
+const { auth,message,theme,socket,peer} = useSelector(state => state)
 const dispatch = useDispatch()
 
 const {id} = useParams()
@@ -158,23 +158,28 @@ useEffect(()=>{
  }
 
 
-   const callUser = ({video})=>{
-      const {_id, avatar, username, fullname} = auth.user
+ const callUser = ({video}) => {
+  const { _id, avatar, username, fullname } = auth.user
 
-      const msg ={
-        sender: auth.user._id,
-        recipient: _id,
-        avatar, username, fullname,  video
-     }
-     
-   }
+  const msg = {
+      sender: _id,
+      recipient: user._id, 
+      avatar, username, fullname, video
+  }
+
+  if(peer?.open) msg.peerId = peer._id
+
+  socket.emit('callUser',msg)
+}
 
  const handleAudioCall = () =>{
   caller({video: false})
+  callUser({video:false})
  }
 
  const  handleVideoCall = () =>{
   caller({video: true})
+  callUser({video:true})
  }
 
 

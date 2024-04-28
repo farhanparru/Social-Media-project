@@ -5,7 +5,7 @@ import { GLOBALTYPES } from './redux/actions/globalTypes'
 import { MESS_TYPES } from './redux/actions/messageActions'
 
 const SocketClint = () => {
- const {auth,socket} = useSelector(state => state)
+ const {auth,socket,call} = useSelector(state => state)
  const dispatch = useDispatch()
 
 // joinUser
@@ -78,6 +78,24 @@ const SocketClint = () => {
           
                return () => socket.off('addMessageToClient')
             },[socket,dispatch,auth])
+    
+ // Call User
+ useEffect(()=>{
+    socket.on('callUserToClient',data =>{
+        dispatch({type:GLOBALTYPES.CALL, payload: data})
+   })
+  
+       return () => socket.off('callUserToClient')
+    },[socket,dispatch,auth])
+
+
+    useEffect(()=>{
+        socket.on('userBusy',data =>{
+            console.log(data);
+            dispatch({type:GLOBALTYPES.ALERT, payload:{error:`${call.username} is busy!..`}})
+       })
+           return () => socket.off('userBusy')
+        },[socket,dispatch,call])
     
 
 

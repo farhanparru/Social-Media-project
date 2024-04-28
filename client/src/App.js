@@ -56,8 +56,8 @@ function App() {
      const newPeer = new Peer(undefined,{
       host: '/' , port:'3001'
      })
-     console.log(newPeer);
-  },[])
+     dispatch({type: GLOBALTYPES.PEER, payload: newPeer})
+  },[dispatch])
 
   return (
     <Router>
