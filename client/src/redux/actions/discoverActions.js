@@ -13,6 +13,7 @@ export const getDiscoverPosts = ( token) => async (dispatch) =>{
         dispatch({type: DISCOVER_TYPES.LOADING, payload: true})
 
         const res = await getDataAPI(`post_discover`, token)
+   
        dispatch({type: DISCOVER_TYPES.GET_POSTS, payload: res.data})
 
         dispatch({type: DISCOVER_TYPES.LOADING, payload: false})

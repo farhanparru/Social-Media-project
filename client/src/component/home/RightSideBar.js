@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import UserCard from '../UserCard'
 import FollowBtn from '../FollowBtn'
 import LoadIcon  from '../../images/loading.gif'
+import {getSuggestions} from '../../redux/actions/suggessionsActions'
+import Crads from './Crads'
 
 
 function RightSideBar() {
@@ -13,14 +15,21 @@ function RightSideBar() {
  const dispatch = useDispatch()
 
   return (
-    <div>
+    <div className='mt-3'>
+    <Crads/>
      <UserCard user={auth.user}/>
      <div className='d-flex justify-content-between align-items-center my-2'>
         <h5 className='text-danger'>Suggesion for your</h5>
-        <i className='fas fa-redo'/>
+        {
+           !suggesions.loading &&
+           <i className='fas fa-redo' style={{cursor:'pointer'}}
+            onClick={() => dispatch(getSuggestions(auth.token))}
+           />
+        }
+        
      </div>
 
-     {
+     {  
         suggesions?.loading
         ? <img src={LoadIcon} alt='loadinIcon' className='d-block mx-auto my-4' />
         : <div className='suggestions'>
@@ -34,7 +43,9 @@ function RightSideBar() {
         </div>
 
      }
-
+  <div>
+    
+  </div>
     </div>
     
   )

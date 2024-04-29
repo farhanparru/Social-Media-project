@@ -54,7 +54,7 @@ const Search = () => {
 
       <div className="search_icon" style={{ opacity: search ? 0 : 0.3 }}>
         <span className="material-icons">search</span>
-        <span>Enter to search</span>
+        <span>Enter to frindes</span>
       </div>
       <div
         className="close_search"

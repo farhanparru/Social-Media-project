@@ -24,7 +24,7 @@ const {homePosts} = useSelector(state => state)
      {
       homePosts.loading
       ? <img src={LoadIcon} alt='Loading' className='d-block mx-auto'/>
-      : homePosts.result  === 0
+      : (homePosts.result  === 0 && homePosts.posts.length === 0)
       ? <h2 className='text-cenetr'>No Post</h2>
       :<Posts/>
      }

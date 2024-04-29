@@ -19,5 +19,9 @@ router.get('/user_posts/:id', auth, postCtrl.getUserPost)
 
 router.get('/post_discover', auth, postCtrl.getPostsDiscover)
 
+router.patch('/savePost/:id',auth, postCtrl.savePost)
+
+router.patch('/unSavePost/:id',auth, postCtrl.unSavePost)
+
 
 module.exports = router
