@@ -42,7 +42,7 @@ const Profile = () => {
       :  <>
         {
           saveTab
-          ? <Saved auth={auth} profile={profile} dispatch={dispatch} id={id}/>
+          ? <Saved auth={auth}  dispatch={dispatch} />
           :<Posts auth={auth} profile={profile} dispatch={dispatch} id={id}/>
         }
       </>

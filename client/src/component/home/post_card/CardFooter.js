@@ -4,6 +4,7 @@ import LikeButton from '../../LikeButton'
 import {useSelector,useDispatch} from 'react-redux'
 import { likePost,unLikePost,savePost,unSavePost } from '../../../redux/actions/postAction'
 import ShareModal from './ShareModal'
+import CommentModal from './CommentModal'
 
 const CardFooter = ({post}) => {
   const [isLike,setIsLike] = useState(false)
@@ -14,6 +15,7 @@ const CardFooter = ({post}) => {
  const dispatch = useDispatch()
 
  const [saved,setSaved] = useState(false)
+ const [saveLoad,setSaveLoad] = useState(false)
 
 
  useEffect(()=>{
@@ -26,7 +28,7 @@ const CardFooter = ({post}) => {
 
  },[post.likes,auth.user._id ])
 
-
+//Likes
   const  handleLike = async() =>{ 
     if(loadLike) return;
   
@@ -44,7 +46,7 @@ const CardFooter = ({post}) => {
     setLoadLike(false)
   }
 
-
+// Save Posts
   useEffect(()=>{
     if(auth.user.saved?.find(id => id === post._id)){
       setSaved(true)
@@ -52,6 +54,24 @@ const CardFooter = ({post}) => {
       setSaved(false)
   }
   },[auth.user.saved,post._id])
+
+  const  handleSavepost = async() =>{ 
+    if(saveLoad) return;
+  
+       
+      setSaveLoad(true)
+       await dispatch(savePost({post, auth, socket}))
+       setSaveLoad(false)
+  }
+
+  const handleUSavepost = async() =>{
+    if(saveLoad) return;
+    
+    setSaveLoad(true)
+    await dispatch(unSavePost({post, auth,socket}))
+    setSaveLoad(false)
+  }
+
 
 
   return (
@@ -73,10 +93,10 @@ const CardFooter = ({post}) => {
        {
         saved
         ? <i className=' fas fa-bookmark text-info' 
-          onClick={() => dispatch(unSavePost({post,auth}))}
+          onClick={handleUSavepost}
         />
         :<i className=' far fa-bookmark' 
-        onClick={() => dispatch(savePost({post,auth}))}
+        onClick={handleSavepost}
         />
        }
      

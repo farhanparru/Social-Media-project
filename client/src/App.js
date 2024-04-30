@@ -77,14 +77,11 @@ function App() {
             <Route exact path="/register" element={<Register />} />
             <Route path="/profile/:id" element={<Profile/>} />
             <Route exact path='/forgotpassword/:id/:token' element={<ForgotPassword />} />
-          
-     
             <Route path='/:page' element={<PageRender/>} />
             <Route path="/page/:id" element={<PageRender />} />
           
            
             <Route path='/message/:id' element={<Coversation/>}/>
-            
             <Route path='/post/:id' element={<Post/>} />
           </Routes>
           <ToastContainer />
