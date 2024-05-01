@@ -4,11 +4,11 @@ import { useSelector,useDispatch} from 'react-redux'
 import { GLOBALTYPES } from '../../redux/actions/globalTypes'
 import { getDataAPI } from '../../utlis/fetchData'
 import { useNavigate, useParams } from 'react-router-dom'
-import { addUser,getConversations } from '../../redux/actions/messageActions'
+import { MESS_TYPES,getConversations } from '../../redux/actions/messageActions'
 
 
 const LeftSide = () => {
-const {auth, message} = useSelector(state => state)
+const {auth, message,online} = useSelector(state => state)
 const dispatch = useDispatch()
 
 const [search, setSearch] = useState('')
@@ -38,14 +38,14 @@ const handleSearch = async e =>{
 const handleAdduser = (user) =>{
   setSearch('')
   setSearchUsers([])
-  dispatch(addUser({user, message}))
+  dispatch({type: MESS_TYPES.ADD_USER, payload: {...user, text: '', media: []}})
   return navigate(`/message/${user._id}`)
    
 }
 
 const isActive = (user)=>{
   if(id === user._id) return 'active';
-  return
+  return ''
 }
 
 
@@ -73,7 +73,17 @@ useEffect(()=>{
   }
 },[message.resultUsers, page, auth, dispatch])
 
-   
+
+
+// Check user Online - Offline
+
+
+useEffect(() => {
+  if(message.firstLoad) {
+      dispatch({type: MESS_TYPES.CHECK_ONLINE_OFFLINE, payload: online})
+  }
+},[online, message.firstLoad, dispatch])
+
   return ( 
     <>
       <form className='message_header' onSubmit={handleSearch}>
@@ -104,8 +114,13 @@ useEffect(()=>{
         message.users.map(user =>(
           <div key={user._id} className= 'message_user'
            onClick={() => handleAdduser(user)}>
-          <UserCard user={user}  msg={true}/>
-          <i className='fas fa-circle'/>
+          <UserCard user={user}  msg={true}>
+          {
+            user.online
+              ? <i className="fas fa-circle text-danger" />
+              : <i className='fas fa-circle'/>
+          }
+          </UserCard>
             </div>
         ))
        

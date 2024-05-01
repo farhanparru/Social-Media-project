@@ -100,7 +100,23 @@ const messageCtrl = {
       } catch (err) {
         return res.status(500).json({msg: err.message })
       }
-   }
+   },
+   deleteConversation: async (req,res) =>{
+    try {
+ 
+    const newConver = await Conversation.findOneAndDelete({
+      $or:[
+        {recipients: [req.user._id, req.params.id]},
+        {recipients: [req.user._id, req.params.id]}
+      ]
+    })
+
+    await Messages.deleteMany({conversation: newConver._id})
+    res.json({msg :" Delete success"})
+    } catch (err) {
+      return res.status(500).json({msg: err.message })
+    }
+ }
 }
 
 

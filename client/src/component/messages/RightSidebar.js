@@ -1,18 +1,24 @@
 import React, { useEffect, useState, useRef } from 'react'
 import UserCard from '../UserCard'
 import {useSelector,useDispatch} from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import MsgDisplay from './MsgDisplay'
 import { GLOBALTYPES } from '../../redux/actions/globalTypes'
 import { imageShow,videoShow } from '../../utlis/mediaShow'
 import { imageUpload } from '../../utlis/imageUpload'
 import Icons from '../../component/icons'
-import { loadMoreMessages, addMessage,getMessages } from '../../redux/actions/messageActions'
+import { 
+  loadMoreMessages, 
+  addMessage,
+  getMessages ,
+  deleteConverstion
+} from '../../redux/actions/messageActions'
 import LoadIcon from  '../../images/loading.gif'
 
 const RightSidebar = () => {
 const { auth,message,theme,socket,peer} = useSelector(state => state)
 const dispatch = useDispatch()
+const navigate = useNavigate()
 
 const {id} = useParams()
 const [user, setUser] = useState([])
@@ -29,6 +35,8 @@ const [data, setData] = useState([])
 const [result, setResult] = useState(9)
 const [page, setPage] = useState(0)
 const [isLoadMore, setIsLoadMore] = useState(0)
+
+
 
 useEffect(() =>{
   const newData = message.data.find(item => item._id === id)
@@ -183,17 +191,25 @@ useEffect(()=>{
  }
 
 
+ const handleDeleteConverstion = () =>{
+   dispatch(deleteConverstion({auth,id}))
+   return navigate('/message')
+ }
+
+
 
   return (
     <>
-    <div className='message_header'>
+    <div className='message_header' style={{cursor:'pointer'}}>
      <UserCard user={user}>
      <div>
      <i className='fas fa-phone-alt '
       onClick={handleAudioCall} />
      <i className='fas fa-video mx-3'
       onClick={handleVideoCall} />
-     <i className='fas fa-trash text-danger' />
+     <i className='fas fa-trash text-danger' 
+      onClick={handleDeleteConverstion}
+     />
      </div>
     
      </UserCard>

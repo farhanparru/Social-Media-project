@@ -30,12 +30,12 @@ const Profile = () => {
      
        <Info auth={auth} profile={profile} dispatch={dispatch} id={id} />
        {
-         auth.user._id === id &&
+         auth.user?._id === id &&
           <div className='profile_tab'>
             <button className={saveTab ? '' :'active'} onClick={() => setSaveTab(false)}>Posts</button>
             <button className={saveTab ? 'active' :''} onClick={() => setSaveTab(true)}>Saved</button>
           </div>
-       }
+       }     
     {
       profile.loading
       ? <img  className='d-block mx-auto my-4' src={LodingIcon} alt='loading'/>  

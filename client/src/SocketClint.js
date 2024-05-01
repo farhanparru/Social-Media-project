@@ -5,13 +5,13 @@ import { GLOBALTYPES } from './redux/actions/globalTypes'
 import { MESS_TYPES } from './redux/actions/messageActions'
 
 const SocketClint = () => {
- const {auth,socket,call} = useSelector(state => state)
+ const {auth,socket,call,online} = useSelector(state => state)
  const dispatch = useDispatch()
 
 // joinUser
   useEffect(()=>{
-    socket.emit('joinUser', auth.user._id)
-  },[socket,auth.user._id])
+    socket.emit('joinUser', auth.user)
+  },[socket,auth.user])
 
 
   // Likes
@@ -74,6 +74,15 @@ const SocketClint = () => {
         useEffect(()=>{
             socket.on('addMessageToClient',msg =>{
                 dispatch({type:MESS_TYPES.ADD_MESSAGE, payload: msg})
+                
+                dispatch({
+                    type: MESS_TYPES.ADD_USER, 
+                    payload: {
+                    ...msg.user, 
+                     text: msg.text,
+                     media: msg.media
+                  }
+                })
            })
           
                return () => socket.off('addMessageToClient')
@@ -99,12 +108,41 @@ const SocketClint = () => {
     
 
 
+// Check User Online / Offline
+useEffect(() => {
+    socket.emit('checkUserOnline', auth.user)
+},[socket, auth.user])
 
+useEffect(() => {
+    socket.on('checkUserOnlineToMe', data =>{
+        data.forEach(item => {
+            if(!online.includes(item.id)){
+                dispatch({type: GLOBALTYPES.ONLINE, payload: item.id})
+            }
+        })
+    })
 
+    return () => socket.off('checkUserOnlineToMe')
+},[socket, dispatch, online])
+//----------------------------------------
+    
+    useEffect(() => {
+        socket.on('checkUserOnlineToClient',id =>{
+           if(!online.includes(id)){
+             dispatch({type: GLOBALTYPES.ONLINE, payload: id})
+           }
+        })
 
+        return () => socket.off('checkUserOnlineToClient')
+    },[socket, dispatch, online])
+
+        // Check user Offline
+
+        
     
 
   return <></>
 }
 
 export default SocketClint
+ 

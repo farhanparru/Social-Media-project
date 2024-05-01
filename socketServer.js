@@ -9,15 +9,32 @@ const EditData = (data,id,call)=>{
 
 const  SocketServer = (socket) =>{
     // Conncte - Disconncte
-    socket.on('joinUser', id =>{  
-    users.push({id, socketId: socket.id})
+    socket.on('joinUser', user =>{  
+    users.push({id: user._id, socketId: socket.id, followers: user.followers})
+  
+  
    }) 
 
-   socket.on('disconnect', () =>{  
-    users = users.filter(user => user.socketId !== socket.id)
-   }) 
-
+   socket.on('disconnect', () =>{ 
+    const data = users.find(user => user.socketId === socket.id)
    
+    if(data){
+        const clients = users.filter(user => 
+            data.followers.find(item => item._id === user.id)
+        )
+     
+   
+      if(clients.length > 0){
+        clients.forEach(client => {
+          socket.to(`${client.socketId}`).emit('CheckUserOffline', data.id)
+        });
+      }       
+    }
+    users = users.filter(user => user.socketId !== socket.id)
+   
+   }) 
+    
+     
 
  //Likes
  socket.on('likePost', newPost =>{  
@@ -122,7 +139,31 @@ const  SocketServer = (socket) =>{
      }
    }
  })
-                  
+       
+ 
+ // Check User Online / Offline
+
+ socket.on('checkUserOnline', data => {
+  const following = users.filter(user => 
+      data.following.find(item => item._id === user.id)
+  )
+ 
+  socket.emit('checkUserOnlineToMe', following)
+
+  const clients = users.filter(user => 
+      data.followers.find(item => item._id === user.id)
+  )
+
+  if(clients.length > 0){
+      clients.forEach(client => {
+          socket.to(`${client.socketId}`).emit('checkUserOnlineToClient', data._id)
+      })
+  }
+  
+})
+
+
+
 }
 
 module.exports = SocketServer          
