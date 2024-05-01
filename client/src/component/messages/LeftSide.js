@@ -5,6 +5,7 @@ import { GLOBALTYPES } from '../../redux/actions/globalTypes'
 import { getDataAPI } from '../../utlis/fetchData'
 import { useNavigate, useParams } from 'react-router-dom'
 import { MESS_TYPES,getConversations } from '../../redux/actions/messageActions'
+import { faCircle } from '@fortawesome/free-solid-svg-icons';
 
 
 const LeftSide = () => {
@@ -117,7 +118,7 @@ useEffect(() => {
           <UserCard user={user}  msg={true}>
           {
             user.online
-              ? <i className="fas fa-circle text-danger" />
+              ? <i className="fas fa-circle text-success" />
               : <i className='fas fa-circle'/>
           }
           </UserCard>

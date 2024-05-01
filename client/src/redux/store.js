@@ -2,7 +2,7 @@ import { createStore, applyMiddleware,compose  } from 'redux'
 import { Provider } from 'react-redux';
 import  thunk  from 'redux-thunk';
 import rootReducer from './reducers/index';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { composeWithDevTools } from '@redux-devtools/extension';
 
 
 // Use Redux's compose function as a fallback if Redux DevTools are not available

@@ -22,8 +22,7 @@ const  SocketServer = (socket) =>{
         const clients = users.filter(user => 
             data.followers.find(item => item._id === user.id)
         )
-     
-   
+    
       if(clients.length > 0){
         clients.forEach(client => {
           socket.to(`${client.socketId}`).emit('CheckUserOffline', data.id)
@@ -149,7 +148,6 @@ const  SocketServer = (socket) =>{
   )
  
   socket.emit('checkUserOnlineToMe', following)
-
   const clients = users.filter(user => 
       data.followers.find(item => item._id === user.id)
   )

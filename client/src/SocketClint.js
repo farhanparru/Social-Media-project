@@ -137,7 +137,13 @@ useEffect(() => {
     },[socket, dispatch, online])
 
         // Check user Offline
-
+        useEffect(() => {
+            socket.on('CheckUserOffline',id =>{
+              dispatch({type: GLOBALTYPES.OFFLINE,payload: id})
+            })
+    
+            return () => socket.off('CheckUserOffline')
+        },[socket, dispatch])
         
     
 
