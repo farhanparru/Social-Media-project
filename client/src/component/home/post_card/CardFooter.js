@@ -87,6 +87,8 @@ const CardFooter = ({post}) => {
        <Link to={`/post/${post._id}`} className='text-dark'>
        <i className=' far fa-comment' />
        </Link>
+    
+
         
       <ShareModal post={post}/>
        </div>

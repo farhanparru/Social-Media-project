@@ -8,7 +8,7 @@
 
 
 // mongoDb Conncted functions
-mongoose.connect("mongodb://127.0.0.1:27017/SocialPulse", {
+mongoose.connect("mongodb+srv://shaminmuhammad116:uvGxiNFaQTP6fEqu@shaminfarhan.jhzwtdr.mongodb.net/", {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
