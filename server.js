@@ -8,15 +8,15 @@
 
 
 // mongoDb Conncted functions
-mongoose.connect("mongodb+srv://shaminmuhammad116:uvGxiNFaQTP6fEqu@shaminfarhan.jhzwtdr.mongodb.net/", {
+mongoose.connect("mongodb+srv://shaminmuhammad116:uvGxiNFaQTP6fEqu@shaminfarhan.jhzwtdr.mongodb.net/", {    
     useNewUrlParser: true,
     useUnifiedTopology: true
-}).then(() => {
-    console.log('Connected to MongoDB');
+}).then(() => {     
+    console.log('Connected to MongoDB');   
 }).catch((err) => {
-    console.error('Error connecting to MongoDB:', err.message);
-});
-
+    console.error('Error connecting to MongoDB:', err.message); 
+});  
+   
   const app = express()
   app.use(express.json())
   app.use(cors())
