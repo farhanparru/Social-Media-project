@@ -8,7 +8,7 @@
 
 
 // mongoDb Conncted functions
-mongoose.connect("mongodb+srv://shaminmuhammad116:uvGxiNFaQTP6fEqu@shaminfarhan.jhzwtdr.mongodb.net/", {    
+mongoose.connect("mongodb+srv://shaminmuhammad116:Parru1234@cluster0.imbsnlg.mongodb.net/Network?retryWrites=true&w=majority", {    
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {     
@@ -18,9 +18,9 @@ mongoose.connect("mongodb+srv://shaminmuhammad116:uvGxiNFaQTP6fEqu@shaminfarhan.
 });  
    
   const app = express()
-  app.use(express.json())
+  app.use(express.json())    
   app.use(cors())
-  app.use(cookieParser())
+  app.use(cookieParser()) 
 
  //socket.io 
  const http = require('http').createServer(app)
