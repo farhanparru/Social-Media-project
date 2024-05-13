@@ -97,7 +97,7 @@ useEffect(() => {
 
       <div className='message_chat_list'>
       {
-        searchUsers.length !== 0
+        searchUsers?.length !== 0
         ? <>
           {
             searchUsers.map(user => (

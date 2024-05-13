@@ -34,9 +34,9 @@ function RightSideBar() {
         ? <img src={LoadIcon} alt='loadinIcon' className='d-block mx-auto my-4' />
         : <div className='suggestions'>
           {
-            suggesions?.users?.map(user => (
-                <UserCard key={user?._id}  user={user}>
-                <FollowBtn user={user} />                    
+            suggesions?.users.map(user => (
+                <UserCard key={user._id}  user={user}>
+                <FollowBtn user={user} />                      
               </UserCard>
             ))
           }
