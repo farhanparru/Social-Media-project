@@ -1,7 +1,6 @@
 import { GLOBALTYPES } from "../actions/globalTypes"
 import { postDataAPI } from "../../utlis/fetchData"
 import { getDataAPi } from "../../utlis/fetchData"
-import { fetchData } from "../../utlis/fetchData"
 import valid from "../../utlis/valid"
 
 
@@ -10,6 +9,7 @@ import valid from "../../utlis/valid"
 export const login = (data)=>async (dispatch) => {
    try{
     dispatch({type:GLOBALTYPES.ALERT,payload:{loading:true}})
+
     const res = await postDataAPI('login',data)
 
     dispatch({
@@ -19,8 +19,6 @@ export const login = (data)=>async (dispatch) => {
       user: res.data.user
   }
 })
-
-
     localStorage.setItem("firstlogin",true)
     dispatch({
     type:GLOBALTYPES.ALERT,

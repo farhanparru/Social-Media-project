@@ -17,7 +17,7 @@ mongoose.connect("mongodb+srv://shaminmuhammad116:Parru1234@cluster0.imbsnlg.mon
     console.error('Error connecting to MongoDB:', err.message); 
 });  
    
-  const app = express()
+  const app = express() 
   app.use(express.json())    
   app.use(cors())
   app.use(cookieParser()) 
