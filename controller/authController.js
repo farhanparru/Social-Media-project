@@ -97,22 +97,21 @@ module.exports = {
          }
 
                   
-         const access_token = createAccessToken({id:user._id})
-         const refresh_token = createRefreshToken({id:user._id})
+         const access_token = createAccessToken({id: user._id})
+         const refresh_token = createRefreshToken({id: user._id})
 
-        res.cookie('refreshtoken',refresh_token,{
-           httpOnly:true,
-           path:'/api/refresh_token',
-           maxAge: 30*24*60*60*1000 // 30days
-        })
-
+         res.cookie('refreshtoken', refresh_token, {
+          httpOnly: true,
+          path: '/api/refresh_token',
+          maxAge: 30*24*60*60*1000 // 30days
+      })
 
          res.json({
             msg:"Login Sucessfully",
             access_token,
             user:{
                 ...user._doc,
-                password:''
+                password: ''
             }
          })
 
@@ -135,14 +134,12 @@ module.exports = {
         try{
 
             const rf_token = req.cookies.refreshtoken
-            if(!rf_token){
-                return res.status(400).json({msg:"Please login now."})
-              }
+            if(!rf_token) return res.status(400).json({msg:"Please login now."})
+              
               jwt.verify(rf_token,process.env.REFRESH_TOKEN_SCCRET,async(err,result)=>{
                
-                if(err){
-                    return res.status(400).json({msg:"Please login now."})
-                }
+                if(err) return res.status(400).json({msg:"Please login now."})
+                
                 const  user = await Users.findById(result.id).select("-password")
                 .populate("followers following","avatar username fullname followers following")
 
@@ -150,6 +147,7 @@ module.exports = {
                  return res.status(400).json({msg:"This does not exist."})
                 }
                 const access_token = createAccessToken({id:result.id})
+
                 res.json({
                     access_token,
                     user
@@ -157,7 +155,8 @@ module.exports = {
               })
              
         }catch(err){
-            return res.status(500).json({msg: err.message})
+          console.log(err);
+            // return res.status(500).json({msg: err.message})
         }
     },
 

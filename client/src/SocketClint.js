@@ -6,7 +6,7 @@ import { MESS_TYPES } from './redux/actions/messageActions'
 
 const SocketClint = () => {
  const {auth,socket,call,online} = useSelector(state => state)
- const dispatch = useDispatch()
+ const dispatch = useDispatch()   
 
 // joinUser
   useEffect(()=>{

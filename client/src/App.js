@@ -24,6 +24,8 @@ import CallModal from './component/messages/CallModal';
 import Peer  from 'peerjs'
 
 
+
+
 import io from 'socket.io-client'
 import { GLOBALTYPES } from './redux/actions/globalTypes';
 import SocketClint from './SocketClint'
@@ -54,10 +56,13 @@ function App() {
 
   useEffect(()=>{
      const newPeer = new Peer(undefined,{
-      host: '/' , port:'3001'
+      host: '/' ,
+      port:'3001'
      })
      dispatch({type: GLOBALTYPES.PEER, payload: newPeer})
   },[dispatch])
+
+
 
   return (
     <Router>

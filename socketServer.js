@@ -7,6 +7,8 @@ const EditData = (data,id,call)=>{
   return  newData
 }
 
+
+
 const  SocketServer = (socket) =>{
     // Conncte - Disconncte
     socket.on('joinUser', user =>{  
@@ -22,12 +24,19 @@ const  SocketServer = (socket) =>{
         const clients = users.filter(user => 
             data.followers.find(item => item._id === user.id)
         )
-    
+         
       if(clients.length > 0){
         clients.forEach(client => {
           socket.to(`${client.socketId}`).emit('CheckUserOffline', data.id)
         });
       }       
+        if(data.call){
+          const callUser =  users.find(user => user.id === data.call)
+           if(callUser){
+             users = EditData(users, callUser.id, null)
+             socket.to(`${callUser.socketId}`).emit('callerDisconnect')
+           }
+        }
     }
     users = users.filter(user => user.socketId !== socket.id)
    
@@ -110,6 +119,7 @@ const  SocketServer = (socket) =>{
    users = EditData(users, data.sender, data.recipient)
 
    const client = users.find(user => user.id === data.recipient)
+   console.log(client);
    if(client){
      if(client.call){
       EditData(users, data.sender, null)
