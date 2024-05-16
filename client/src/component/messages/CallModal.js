@@ -107,9 +107,9 @@ const CallModal = () => {
       }).catch(error => {
         console.error('Play was interrupted:', error);
       
-      });
-    }
-  }
+      });      
+    }  
+  }    
 
 //   const playStream = (tag, stream) => {
 //     let video = tag;
@@ -145,7 +145,7 @@ const CallModal = () => {
       const newCall = peer.call(call.peerId, stream);
       newCall?.on('stream', function(remoteStream) {
           playStream(otherVideo.current, remoteStream)
-      });
+      });               
       setAnswer(true);
       setNewCall(newCall)
     })
@@ -200,9 +200,12 @@ const CallModal = () => {
 
   // play- Pause Audio
 
-  const playAudio = (newAudio) =>{
-    newAudio.play();
+  const playAudio = (newAudio) => {
+    newAudio.play().catch(error => {
+        console.error('Play was interrupted:', error);
+    });
 }
+
 
 const pauseAudio = (newAudio) => {
   newAudio.pause()

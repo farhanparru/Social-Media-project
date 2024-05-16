@@ -32,91 +32,42 @@ const Login = () => {
  }
 
 
-  return (
-    <div className="auth_page  items-center justify-center ">
+ return (
+  <div className="auth_page items-center justify-center">
     <form onSubmit={handleSubmit}>
-      <div className="py-12 " style={{paddingTop:"12rem"}}>
-        <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
-        <div
-  className="hidden lg:block lg:w-1/2 bg-cover bg-center"
-  style={{
-    backgroundImage: "url('https://img.freepik.com/free-vector/feed-concept-illustration_114360-4976.jpg')",
-    backgroundSize: "cover",
-    backgroundPosition: "center"
-  }}
-></div>
-
-
-          <div className="w-full p-8 lg:w-1/2">
-            <h2 className="text-2xl font-semibold text-gray-700 text-center">
-            World-Network
-            </h2>
-            <p className="text-xl text-gray-600 text-center">Welcome back!</p>
-            <a
-              href="#"
-              className="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100"
-            >
-              <div className="px-4 py-3">
-                <svg className="h-6 w-6" viewBox="0 0 40 40">
-                  <path
-                    d="M36.3425 16.7358H35V16.6667H20V23.3333H29.4192C28.045 27.2142 24.3525 30 20 30C14.4775 30 10 25.5225 10 20C10 14.4775 14.4775 9.99999 20 9.99999C22.5492 9.99999 24.8683 10.9617 26.6342 12.5325L31.3483 7.81833C28.3717 5.04416 24.39 3.33333 20 3.33333C10.7958 3.33333 3.33335 10.7958 3.33335 20C3.33335 29.2042 10.7958 36.6667 20 36.6667C29.2042 36.6667 36.6667 29.2042 36.6667 20C36.6667 18.8825 36.5517 17.7917 36.3425 16.7358Z"
-                    fill="#FFC107"
-                  />
-                  <path
-                    d="M5.25497 12.2425L10.7308 16.2583C12.2125 12.59 15.8008 9.99999 20 9.99999C22.5491 9.99999 24.8683 10.9617 26.6341 12.5325L31.3483 7.81833C28.3716 5.04416 24.39 3.33333 20 3.33333C13.5983 3.33333 8.04663 6.94749 5.25497 12.2425Z"
-                    fill="#FF3D00"
-                  />
-                  <path
-                    d="M20 36.6667C24.305 36.6667 28.2167 35.0192 31.1742 32.34L26.0159 27.975C24.3425 29.2425 22.2625 30 20 30C15.665 30 11.9842 27.2359 10.5975 23.3784L5.16254 27.5659C7.92087 32.9634 13.5225 36.6667 20 36.6667Z"
-                    fill="#4CAF50"
-                  />
-                  <path
-                    d="M36.3425 16.7358H35V16.6667H20V23.3333H29.4192C28.7592 25.1975 27.56 26.805 26.0133 27.9758C26.0142 27.975 26.015 27.975 26.0158 27.9742L31.1742 32.3392C30.8092 32.6708 36.6667 28.3333 36.6667 20C36.6667 18.8825 36.5517 17.7917 36.3425 16.7358Z"
-                    fill="#1976D2"
-                  />
-                </svg>
-              </div>
-              <h1 className="px-4 py-3 w-5/6 text-center text-gray-600 font-bold">
-                Sign in with Google
-              </h1>
-            </a>
-            <div className="mt-4 flex items-center justify-between">
-              <span className="border-b w-1/5 lg:w-1/4"></span>
-              <a href="#" className="text-xs text-center text-gray-500 uppercase">
-                or login with email
-              </a>
-              <span className="border-b w-1/5 lg:w-1/4"></span>
+      <div class="flex flex-wrap">
+        <div class="flex w-full flex-col md:w-1/2">
+          <div class="flex justify-center pt-12 md:-mb-24 md:justify-start md:pl-12">
+            <a href="#" class="border-b-gray-700 border-b-4 pb-2 text-2xl font-bold text-gray-900">Damasus.</a>
+          </div>
+          <div class="lg:w-[28rem] mx-auto my-auto flex flex-col justify-center pt-8 md:justify-start md:px-6 md:pt-0">
+            <p class="text-left text-3xl font-bold italic hover:not-italic">Welcome back, Social Media App</p>
+            <p class="mt-2 text-left text-gray-500">Welcome back, please enter your details.</p>
+            <button class="-2 mt-8 flex items-center justify-center rounded-md border px-4 py-1 outline-none ring-gray-400 ring-offset-2 transition focus:ring-2 hover:border-transparent hover:bg-black hover:text-white">
+              <img class="mr-2 h-5" src="https://static.cdnlogo.com/logos/g/35/google-icon.svg" alt /> Log in with Google
+            </button>
+            <div class="relative mt-8 flex h-px place-items-center bg-gray-200">
+              <div class="absolute left-1/2 h-6 w-14 -translate-x-1/2 bg-white text-center text-sm text-gray-500">or</div>
             </div>
-
-            <div className="mt-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2">
-                Email Address
-              </label>
-
-              <input
-                className="bg-gray-200 text-gray-700 focus:outline-none 
-                focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-                type="email"
-                onChange={handleChnageInput}
-                value={email}
-                name="email"
-              />
-
-            </div>
-
-            <div className="mt-4">
-              <div className="flex justify-between">
-                <label className="block text-gray-700 text-sm font-bold mb-2">
-                  Password
-                </label>
-               <Link to="/Resetpassword"><a href="#" className="text-xs text-gray-500">
-                  Forget Password?
-                </a></Link> 
+            <div class="flex flex-col pt-3 md:pt-8">
+              <div class="flex flex-col pt-4">
+                <div class="focus-within:border-b-gray-500 relative flex overflow-hidden border-b-2 transition">
+                  <input 
+                    class="w-full flex-1 appearance-none border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 focus:outline-none" 
+                    placeholder="Email"
+                    type="email"
+                    onChange={handleChnageInput}
+                    value={email}
+                    name="email"
+                  />
+                </div>
               </div>
-
-              <div className="pass relative">
-                  <input
-                    className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+              <div class="mb-12 flex flex-col pt-4">
+                <div class="focus-within:border-b-gray-500 relative flex overflow-hidden border-b-2 transition">
+                  <input 
+                    id="login-password" 
+                    class="w-full flex-1 appearance-none border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 focus:outline-none"
+                    placeholder="Password" 
                     type={typePass ? "text" : "password"}
                     onChange={handleChnageInput}
                     value={password}
@@ -126,35 +77,34 @@ const Login = () => {
                     className="absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer"
                     onClick={() => setTypePass(!typePass)}
                   >
-                   
                     {typePass ? <AiOutlineEyeInvisible className="w-6 h-6 ml-2" /> : <AiOutlineEye className="w-6 h-6 ml-2" />}
                   </small>
                 </div>
               </div>
-            <div className="mt-8">
-              <button 
-              className="bg-gray-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-gray-600"
-              disabled={email && password ? false: true}>
-              
-                Login
-              </button>
+              <button type="submit" class="w-full rounded-lg bg-gray-900 px-4 py-2 text-center text-base font-semibold text-white shadow-md ring-gray-500 ring-offset-2 transition focus:ring-2">Log in</button>
             </div>
-            <div className="mt-4 flex items-center justify-between">
-              <span className="border-b w-1/5 md:w-1/4"></span>
-
-             <Link to="/register"> <a href="#" className="text-xs text-gray-500 uppercase">
-                or sign up
-              </a></Link>
-        
-               
-              <span className="border-b w-1/5 md:w-1/4"></span>
+            <div class="py-12 text-center">
+              <p class="whitespace-nowrap text-gray-600">
+                Don't have an account?
+                <Link to="/register"> <a href="#" class="underline-offset-4 font-semibold text-gray-900 underline">Sign up for free.</a></Link>
+              </p>
             </div>
           </div>
         </div>
+        <div class="pointer-events-none relative hidden h-screen select-none bg-black md:block md:w-1/2">
+          <div class="absolute bottom-0 z-10 px-8 text-white opacity-100">
+            <p class="mb-8 text-3xl font-semibold leading-10">We work 10x faster than our competitors and stay consistent. While they're bogged down with technical debt, we're releasing new features.</p>
+            <p class="mb-4 text-3xl font-semibold">John Elmond</p>
+            <p class="">Founder, Emogue</p>
+            <p class="mb-7 text-sm opacity-70">Web Design Agency</p>
+          </div>
+          <img class="-z-1 absolute top-0 h-full w-full object-cover opacity-90" src="https://img.freepik.com/premium-vector/concept-illustration-man-woman-friends-having-online-conversation-messaging-chatting-communication-texting-messages-mobile-phone-apps-flat-cartoon-style_270158-412.jpg" />
+        </div>
       </div>
-      </form>
-    </div>
-  );
+    </form>
+  </div>
+);
+
 };
 
 export default Login;

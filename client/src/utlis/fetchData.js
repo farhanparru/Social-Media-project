@@ -32,7 +32,7 @@ export const patchDataAPI = async (url,post,token)=>{
 }
 
 export const deleteDataAPI = async (url,token)=>{
-    const res = await axios.delete(`/api/${url}`, {
+    const res = await axios.delete(`https://api.world-network.site/api/${url}`, {
         headers:{Authorization:token}
     })
     return res
@@ -41,7 +41,7 @@ export const deleteDataAPI = async (url,token)=>{
 // forgotpassword get
 export const getDataAPi = async (url, token, id) => {
     try {
-        const res = await axios.get(`/api/${url}/${id}/${token}`, {
+        const res = await axios.get(`https://api.world-network.site/api/${url}/${id}/${token}`, {
             headers: { Authorization: token }
         });
       

@@ -42,7 +42,7 @@ const Info = ({id, auth, profile, dispatch}) => {
 
         <div className='Info_content'>
       <div className='Info_content_title'>
-     <h2>{user.username}h</h2>
+     <h2 class="italic hover:not-italic">{user.username}h</h2>
 
      {
       user._id === auth.user._id
