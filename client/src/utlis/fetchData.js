@@ -39,17 +39,17 @@ export const deleteDataAPI = async (url,token)=>{
 }
 
 // forgotpassword get
-// export const getDataAPi = async (url, token, id) => {
-//     try {
-//         const res = await axios.get(`/api/${url}/${id}/${token}`, {
-//             headers: { Authorization: token }
-//         });
+export const getDataAPi = async (url, token, id) => {
+    try {
+        const res = await axios.get(`/api/${url}/${id}/${token}`, {
+            headers: { Authorization: token }
+        });
       
-//         return res;
-//     } catch (error) {
-//         throw error;    
-//     }
-// }
+        return res;
+    } catch (error) {
+        throw error;    
+    }
+}
 
 // change password post
 // export const fetchData = async (url, data, token) => {
