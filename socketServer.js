@@ -117,9 +117,7 @@ const  SocketServer = (socket) =>{
  socket.on('callUser',data =>{
   //  console.log({oldUsers: users});
    users = EditData(users, data.sender, data.recipient)
-
    const client = users.find(user => user.id === data.recipient)
-   console.log(client);
    if(client){
      if(client.call){
       EditData(users, data.sender, null)

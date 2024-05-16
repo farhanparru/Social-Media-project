@@ -38,6 +38,8 @@ function App() {
 
   useEffect(() => {
     dispatch(refreshToken());
+
+    
     const socket = io()
     dispatch({type: GLOBALTYPES.SOCKET, payload: socket})
     return () => socket.close()
@@ -56,14 +58,14 @@ function App() {
 
   useEffect(()=>{
      const newPeer = new Peer(undefined,{
-      host: '/' ,
-      port:'3001'
+        path: '/', secure: true
      })
+
      dispatch({type: GLOBALTYPES.PEER, payload: newPeer})
   },[dispatch])
 
 
-
+    
   return (
     <Router>
       <Alert />

@@ -11,7 +11,7 @@ const Carousel = ({images,id}) => {
 
   return (
     <div id={`images${id}`} class="carousel slide" data-ride="carousel">
-  <ol class="carousel-indicators">
+  <ol class="carousel-indicators" style={{zIndex:1}}>
   {
     images.map((img,index)=>(
         <li  key={index} data-target={`#images${id}`} 

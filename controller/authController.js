@@ -82,6 +82,7 @@ module.exports = {
     
    
    login: async(req,res)=>{
+    console.log('djkdkjdkjkj');
         try{
          const {email, password} = req.body
          const user = await Users.findOne({email})
@@ -155,8 +156,7 @@ module.exports = {
               })
              
         }catch(err){
-          console.log(err);
-            // return res.status(500).json({msg: err.message})
+            return res.status(500).json({msg: err.message})
         }
     },
 

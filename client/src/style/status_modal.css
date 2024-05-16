@@ -113,3 +113,6 @@
     font-weight: 900;
     cursor: pointer;
 }
+.status_body .dropdown-menu{
+    transform: translate3d(-153px,-199px,0px) !important;
+}

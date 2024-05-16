@@ -4,13 +4,13 @@
   const cors = require('cors')
   const cookieParser = require('cookie-parser')
   const SocketServer = require('./socketServer')
-  const {PeerServer} = require('peer')
+  const {ExpressPeerServer} = require('peer')
 
 
 // mongoDb Conncted functions
 mongoose.connect("mongodb+srv://shaminmuhammad116:Parru1234@cluster0.imbsnlg.mongodb.net/Network?retryWrites=true&w=majority", {    
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true   
 }).then(() => {     
     console.log('Connected to MongoDB');   
 }).catch((err) => {
@@ -19,7 +19,7 @@ mongoose.connect("mongodb+srv://shaminmuhammad116:Parru1234@cluster0.imbsnlg.mon
    
   const app = express() 
   app.use(express.json())    
-  app.use(cors())
+  app.use(cors())   
   app.use(cookieParser()) 
 
  //socket.io 
@@ -33,7 +33,7 @@ mongoose.connect("mongodb+srv://shaminmuhammad116:Parru1234@cluster0.imbsnlg.mon
 
 
  // Create peerServer  (WebRTc)
- PeerServer({port: 3001, path:'/'})
+ ExpressPeerServer(http, {path: '/'})
 
 
  //Routres
@@ -49,4 +49,4 @@ mongoose.connect("mongodb+srv://shaminmuhammad116:Parru1234@cluster0.imbsnlg.mon
 
   http.listen(port,()=>{
      console.log(`Server is runing on port ,port${port}`);
-  })
+  })   

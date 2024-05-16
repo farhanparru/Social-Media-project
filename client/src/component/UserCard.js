@@ -38,7 +38,7 @@ const UserCard = ({children,user,border,handleClose,setShowFollowers,setShowFoll
                  }
              </span>
            }
-
+    
         </>
      )
    }

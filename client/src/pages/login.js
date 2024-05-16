@@ -49,7 +49,7 @@ const Login = () => {
 
           <div className="w-full p-8 lg:w-1/2">
             <h2 className="text-2xl font-semibold text-gray-700 text-center">
-             Socilaplus
+            World-Network
             </h2>
             <p className="text-xl text-gray-600 text-center">Welcome back!</p>
             <a

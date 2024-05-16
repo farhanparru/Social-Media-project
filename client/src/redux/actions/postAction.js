@@ -41,14 +41,10 @@ export const POST_TYPES = {
       
        dispatch({type:POST_TYPES.LOADING_POST,payload:true})
        const res = await getDataAPI('posts',token)
-  
-
        dispatch({
         type: POST_TYPES.GET_POSTS,
         payload: {...res.data, page: 2}
     })
-
-
        dispatch({type:POST_TYPES.LOADING_POST,payload:false})
      } catch (err) {
       dispatch({

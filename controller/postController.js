@@ -142,9 +142,10 @@ unLikePost: async (req,res) =>{
 
 getUserPost : async( req,res) =>{
   try {
-  const features = new APIfeatures( Posts.find({user: req.params.id}), req.query)
+  const features = new APIfeatures(Posts.find({user: req.params.id}), req.query)
  .paginating()
  const posts = await features.query.sort('-createdAt')
+ 
   res.json({
     posts,
     result: posts.length

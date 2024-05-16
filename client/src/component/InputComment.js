@@ -43,7 +43,7 @@ const InputComment = ({ children, post,onReply,setOnReply }) => {
                 background: theme ? 'rgba(0,0,0,.03)' : '',
             }} />
 
-    <Icons  setContent={setContent} content={content} />
+    <Icons  setContent={setContent} content={content} theme={theme}/>
 
     <button type='submit' className='postBtn'>
         Post

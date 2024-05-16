@@ -33,12 +33,14 @@
     display: flex;
     justify-content: space-around;
 }
-.call_menu span{
+.call_menu button{
     font-size: 2rem;
     background: #eee;
     padding: 15px;
     border-radius: 50%;
     cursor: pointer;
+    border: none;
+    outline: none;
 }
 .call_menu .timer{
     transform: translateY(-15px);

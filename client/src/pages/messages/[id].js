@@ -5,7 +5,7 @@ import RightSidebar from '../../component/messages/RightSidebar'
 const Coversation  = () => {
   return (
     <div className=' message d-flex'> 
-      <div className='col-md-4 border-right px-0'>
+      <div className='col-md-4 border-right px-0 left_mess'>
      <LeftSide/>
       </div>
 

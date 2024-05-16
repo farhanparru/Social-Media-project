@@ -28,6 +28,7 @@ export const login = (data)=>async (dispatch) => {
   })
 
    }catch(error){
+    console.log(error);
     dispatch({
      type:GLOBALTYPES.ALERT,
      payload:{
@@ -38,33 +39,34 @@ export const login = (data)=>async (dispatch) => {
  }
 
 
-export const refreshToken = () => async(dispatch)=>{
-   const firstlogin = localStorage.getItem("firstlogin")
-   if(firstlogin){
-       dispatch({type:GLOBALTYPES.ALERT,payload:{loading:true}})
-       try{
-         const res = await postDataAPI('refresh_token')
-         console.log(res);
-         dispatch({
-          type:GLOBALTYPES.AUTH,
-          payload:{
-          token:res.data.access_token,
-          user: res.data.user   
-      }
-    })
-    dispatch({type:GLOBALTYPES.ALERT,payload:{} })
-
-       }catch(error){
+ export const refreshToken = () => async(dispatch)=>{
+  const firstlogin = localStorage.getItem("firstlogin")
+  if(firstlogin){
+      dispatch({type:GLOBALTYPES.ALERT,payload:{loading:true}})
+      try{
+        const res = await postDataAPI('refresh_token')
+       
         dispatch({
-          type:GLOBALTYPES.ALERT,
-        payload:{
-           error:error.response.data.msg
-        }
-      })
-
-       }
+         type:GLOBALTYPES.AUTH,
+         payload:{
+         token:res.data.access_token,
+         user: res.data.user   
      }
-   }
+   })
+   dispatch({type:GLOBALTYPES.ALERT,payload:{} })
+
+      }catch(error){
+        console.log(error);
+       dispatch({
+         type:GLOBALTYPES.ALERT,
+       payload:{
+          error:error.response.data.msg
+       }
+     })
+
+      }
+    }
+  }
 
 
 export const register = (data) => async(dispatch)=>{
