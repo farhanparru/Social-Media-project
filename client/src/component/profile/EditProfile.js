@@ -40,6 +40,7 @@ const changeAvatar = (e) =>{
 const handleSubmit = e =>{
    e.preventDefault()
    dispatch(updateProfileUser({userData,avatar,auth}))
+   setOnEdit(false)
 }
 
 const handleInput =  e =>{         
@@ -49,10 +50,7 @@ const handleInput =  e =>{
 
   return (
     <div className='edit_profile'>
-     <button className='btn btn-danger btn_close'
-     onClick={()=>setOnEdit(false)}>
-      Close
-     </button>  
+     
   
      <form onSubmit={handleSubmit}>
       <div className='info_avatar'>
