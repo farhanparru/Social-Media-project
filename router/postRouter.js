@@ -18,6 +18,7 @@ router.patch('/post/:id/unlike',auth, postCtrl.unLikePost)
 
 router.get('/user_posts/:id', auth, postCtrl.getUserPost)
 
+
 router.get('/post_discover', auth, postCtrl.getPostsDiscover)
 
 router.patch('/savePost/:id',auth, postCtrl.savePost)

@@ -135,10 +135,11 @@ module.exports = {
         try{
 
             const rf_token = req.cookies.refreshtoken
+            console.log(rf_token);
             if(!rf_token) return res.status(400).json({msg:"Please login now."})
               
               jwt.verify(rf_token,process.env.REFRESH_TOKEN_SCCRET,async(err,result)=>{
-               
+              
                 if(err) return res.status(400).json({msg:"Please login now."})
                 
                 const  user = await Users.findById(result.id).select("-password")

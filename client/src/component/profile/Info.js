@@ -42,7 +42,7 @@ const Info = ({id, auth, profile, dispatch}) => {
 
         <div className='Info_content'>
       <div className='Info_content_title'>
-     <h2 class="italic hover:not-italic">{user.username}h</h2>
+     <h2 class="font-normal md:font-bold">{user.username}h</h2>
 
      {
       user._id === auth.user._id
@@ -55,16 +55,16 @@ const Info = ({id, auth, profile, dispatch}) => {
      }
       </div>
       <div className='follow_btn'>
-    <span className='mr-4'onClick={() => setShowFollowers(true)}>
+    <span  className="font-semibold mr-4" onClick={() => setShowFollowers(true)}>
       {user.followers.length} Followers
     </span>
-    <span className='ml-4' onClick={() => setShowFollowing(true)}>
+    <span className='ml-4 font-semibold' onClick={() => setShowFollowing(true)}>
       {user.following.length} Following
     </span>
       </div>
-      <h6>{user.fullname} <span className='text-danger'>{user.mobile}</span></h6>
+      <h6 className=' font-normal md:font-bold'>{user.fullname} <span className='text-danger'>{user.mobile}</span></h6>
       <p className='m-0'>{user.address}</p>
-      <h6 className='m-0'>{user.email}</h6>
+      <h6 className='m-0 font-normal md:font-bold'>{user.email}</h6>
       <a href={user.website} target='_blank'  rel="noreferrer">
        {user.website}
       </a>
