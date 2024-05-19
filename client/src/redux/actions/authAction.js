@@ -28,7 +28,9 @@ export const login = (data)=>async (dispatch) => {
   })
 
    }catch(error){
+
     console.log(error);
+
     dispatch({
      type:GLOBALTYPES.ALERT,
      payload:{
@@ -55,14 +57,13 @@ export const login = (data)=>async (dispatch) => {
    })
    dispatch({type:GLOBALTYPES.ALERT,payload:{} })
 
-      }catch(error){
-        console.log(error);
-       dispatch({
-         type:GLOBALTYPES.ALERT,
+      }catch(error){  
+        dispatch({
+          type:GLOBALTYPES.ALERT,
        payload:{
           error:error.response.data.msg
-       }
-     })
+         }         
+       })
 
       }
     }

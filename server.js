@@ -16,15 +16,30 @@ mongoose.connect("mongodb+srv://shaminmuhammad116:Parru1234@cluster0.imbsnlg.mon
 }).catch((err) => {
     console.error('Error connecting to MongoDB:', err.message); 
 });  
+
+
    
   const app = express() 
-  app.use(express.json())    
-  app.use(cors())   
+  app.use(express.json())
+  
+  app.use(cors({
+    origin: ["https://www.world-network.site"], // Update with your frontend URL
+    methods: ["GET", "POST"],
+    credentials: true // Enable CORS with credentials
+}));     
   app.use(cookieParser()) 
 
- //socket.io 
+  
+
+  // Initialize Socket.IO with CORS
  const http = require('http').createServer(app)
- const io = require('socket.io')(http)
+ const io = require('socket.io')(http,{
+   cors:{
+    origin: ["https://www.world-network.site"], 
+    methods: ["GET", "POST"],
+    credentials: true
+   }
+ })
 
  
  io.on('connection', socket => {
@@ -32,7 +47,7 @@ mongoose.connect("mongodb+srv://shaminmuhammad116:Parru1234@cluster0.imbsnlg.mon
  })
 
 
- // Create peerServer  (WebRTc)
+// Create PeerServer for WebRTC
  ExpressPeerServer(http, {path: '/'})
 
 

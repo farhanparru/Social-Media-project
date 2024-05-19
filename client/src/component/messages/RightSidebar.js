@@ -201,6 +201,8 @@ useEffect(()=>{
   return (
     <>
     <div className='message_header' style={{cursor:'pointer'}}>
+    {
+      user.length !== 0 &&
      <UserCard user={user}>
      <div>
      <i className='fas fa-phone-alt '
@@ -213,6 +215,7 @@ useEffect(()=>{
      </div>
     
      </UserCard>
+    }
      
     </div>
 
@@ -232,7 +235,7 @@ useEffect(()=>{
           </div>
           }
 
-          {
+          {     
             msg.sender === auth.user._id &&
             <div className='chat_row you_message'>
             <MsgDisplay user={auth.user} msg={msg} theme={theme} data={data}/>

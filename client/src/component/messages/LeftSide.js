@@ -25,13 +25,12 @@ const handleSearch = async e =>{
     if(!search) return setSearchUsers([]) ;
 
     try {
-        const res = await getDataAPI(`search?username=${search}`, auth.token);
-        setSearchUsers(res.data.users);
+      const res = await getDataAPI(`search?username=${search}`, auth.token)
+      setSearchUsers(res.data.users)
       } catch (err) {
         dispatch({
-          type: GLOBALTYPES.ALERT,
-          payload: { error: err.response.data.msg },
-        });
+          type: GLOBALTYPES.ALERT, payload: {error: err.response.data.msg}
+      })
       }
     
 }

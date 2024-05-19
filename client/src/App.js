@@ -64,7 +64,7 @@ function App() {
      dispatch({type: GLOBALTYPES.PEER, payload: newPeer})
   },[dispatch])
 
-
+      
     
   return (
     <Router>
@@ -73,11 +73,11 @@ function App() {
       <div className={`App ${(status || modal) && 'mode'}`}>
         <div className='main'>
           {auth.token && <Header />}
-          {status && <StatusModal/>}  
+          {status && <StatusModal/>}          
           {auth.token && <SocketClint/>}
-          {call && <CallModal/>}
+          {call && <CallModal/>}        
           <Routes>
-            <Route path='/message' element={<PrivateRoute Component={Message} />} />
+            <Route path='/message' element={<PrivateRoute Component={Message} />} />  
             <Route path='/discover' element={<PrivateRoute Component={Discover} />} />
             <Route path='/notify' element={<PrivateRoute Component={Notify} />} />
             <Route exact path="/" element={auth.token ? <Home /> : <Login />} />
