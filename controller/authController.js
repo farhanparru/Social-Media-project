@@ -134,14 +134,13 @@ module.exports = {
      generateAccessToken:async(req,res)=>{
         try{ 
 
-            const rf_token = req.cookies.refreshtoken   
-            console.log(rf_token,"hai");      
+            const rf_token = req.cookies.refreshtoken      
             if (!rf_token) {
               console.log("No refresh token provided"); 
               return res.status(401).json({ msg: "Please login now." });
           }      
-           
-              jwt.verify(rf_token,process.env.REFRESH_TOKEN_SCCRET,async(err,result)=>{
+  
+             jwt.verify(rf_token,process.env.REFRESH_TOKEN_SCCRET,async(err,result)=>{
          
                 if(err) return res.status(400).json({msg:"Please login now."})
                 
