@@ -21,12 +21,11 @@ mongoose.connect("mongodb+srv://shaminmuhammad116:Parru1234@cluster0.imbsnlg.mon
    
   const app = express() 
   app.use(express.json())
-  
   app.use(cors({
     origin: ["https://www.world-network.site"], // Update with your frontend URL
     methods: ["GET", "POST"],
-    credentials: true // Enable CORS with credentials
-}));     
+    credentials: true  // Enable CORS with credentials
+})); 
   app.use(cookieParser()) 
 
   

@@ -104,7 +104,9 @@ module.exports = {
          res.cookie('refreshtoken', refresh_token, {
           httpOnly: true,
           path: '/api/refresh_token',
-          maxAge: 30*24*60*60*1000 // 30days
+          maxAge: 30*24*60*60*1000, // 30days
+          secure: true, // Ensure true if you're using HTTPS
+          sameSite: 'None',
       })
          res.json({
           msg: 'Login Success!',
@@ -132,9 +134,8 @@ module.exports = {
      generateAccessToken:async(req,res)=>{
         try{ 
 
-            const rf_token = req.cookies.refreshtoken
-                  
-                     
+            const rf_token = req.cookies.refreshtoken   
+            console.log(rf_token,"hai");      
             if (!rf_token) {
               console.log("No refresh token provided"); 
               return res.status(401).json({ msg: "Please login now." });

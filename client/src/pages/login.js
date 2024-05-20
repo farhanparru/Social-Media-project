@@ -93,10 +93,10 @@ const Login = () => {
         </div>
         <div class="pointer-events-none relative hidden h-screen select-none bg-black md:block md:w-1/2">
           <div class="absolute bottom-0 z-10 px-8 text-white opacity-100">
-            <p class="mb-8 text-3xl font-semibold leading-10">We work 10x faster than our competitors and stay consistent. While they're bogged down with technical debt, we're releasing new features.</p>
-            <p class="mb-4 text-3xl font-semibold">John Elmond</p>
-            <p class="">Founder, Emogue</p>
-            <p class="mb-7 text-sm opacity-70">Web Design Agency</p>
+            <p class="mb-8 text-3xl font-semibold leading-10">.</p>
+            <p class="mb-4 text-3xl font-semibold"></p>
+            <p class=""></p>
+            <p class="mb-7 text-sm opacity-70"></p>
           </div>
           <img class="-z-1 absolute top-0 h-full w-full object-cover opacity-90" src="https://img.freepik.com/premium-vector/concept-illustration-man-woman-friends-having-online-conversation-messaging-chatting-communication-texting-messages-mobile-phone-apps-flat-cartoon-style_270158-412.jpg" />
         </div>

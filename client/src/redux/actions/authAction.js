@@ -33,7 +33,7 @@ export const login = (data)=>async (dispatch) => {
 
     dispatch({
      type:GLOBALTYPES.ALERT,
-     payload:{
+     payload:{  
      error:error.response.data.msg
     }
     })
@@ -58,10 +58,11 @@ export const login = (data)=>async (dispatch) => {
    dispatch({type:GLOBALTYPES.ALERT,payload:{} })
 
       }catch(error){  
+        console.log(error);
         dispatch({
           type:GLOBALTYPES.ALERT,
        payload:{
-          error:error.response.data.msg
+          error:error.response?.data?.msg
          }         
        })
 
