@@ -9,8 +9,9 @@ import valid from "../../utlis/valid"
 export const login = (data)=>async (dispatch) => {
    try{
     dispatch({type:GLOBALTYPES.ALERT,payload:{loading:true}})
+
     const res = await postDataAPI('login',data)
-    console.log( res,"haiii");
+
     dispatch({
       type:GLOBALTYPES.AUTH,
       payload:{
@@ -26,14 +27,15 @@ export const login = (data)=>async (dispatch) => {
     }
   })
 
-   }catch(err){    
-   
-  
-    dispatch({       
+   }catch(error){
+
+    console.log(error);
+
+    dispatch({
      type:GLOBALTYPES.ALERT,
-     payload:{
-      error: err.response.data.msg
-    }        
+     payload:{  
+     error:error.response.data.msg
+    }
     })
    }
  }
@@ -42,19 +44,18 @@ export const login = (data)=>async (dispatch) => {
 // Request failed with status code 400
  export const refreshToken = () => async(dispatch)=>{
   const firstlogin = localStorage.getItem("firstlogin")
-  
   if(firstlogin){
       dispatch({type:GLOBALTYPES.ALERT,payload:{loading:true}})
       try{
         const res = await postDataAPI('refresh_token')
         dispatch({
-          type: GLOBALTYPES.AUTH,
-          payload: {
-              token: res.data.access_token,
-              user: res.data.user
-          }
-      });
-      dispatch({type:GLOBALTYPES.ALERT,payload:{} })
+         type:GLOBALTYPES.AUTH,
+         payload:{
+         token:res.data.access_token,
+         user: res.data.user   
+     }
+   })
+   dispatch({type:GLOBALTYPES.ALERT,payload:{} })
 
       }catch(error){  
         console.log(error);

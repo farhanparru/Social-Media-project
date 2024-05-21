@@ -20,7 +20,6 @@ const auth = async (req, res, next) => {
         req.user = user;
         next();
     } catch (err) { 
-      console.log("huahushsuuu");
         return res.status(500).json({ msg: "Server Error" });
       }
    };
