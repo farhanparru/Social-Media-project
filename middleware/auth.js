@@ -4,12 +4,12 @@ const Users = require('../models/userModel');
 const auth = async (req, res, next) => {
     try {
         const token = req.header("Authorization")
-        const realToken = token.split(' ')[1];
+        console.log(token);
 
         if(!token) return res.status(400).json({msg: "Invalid Authentication."})
 
 
-        const decoded = jwt.verify(realToken, process.env.ACCESS_TOKEN_SECRET);
+        const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
         if (!decoded) {
             return res.status(401).json({ msg: "Unauthorized: Invalid token" });
         }
