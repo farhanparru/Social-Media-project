@@ -134,13 +134,14 @@ module.exports = {
      generateAccessToken:async(req,res)=>{
         try{ 
 
-            const rf_token = req.cookies.refreshtoken      
+            const rf_token = req.cookies.refreshtoken  
+            console.log("No refresh token provided",rf_token);    
             if (!rf_token) {
-              console.log("No refresh token provided"); 
               return res.status(401).json({ msg: "Please login now." });
           }      
   
              jwt.verify(rf_token,process.env.REFRESH_TOKEN_SCCRET,async(err,result)=>{
+         
                 if(err) return res.status(400).json({msg:"Please login now."})
                 
                 const  user = await Users.findById(result.id).select("-password")
@@ -149,13 +150,13 @@ module.exports = {
                 if(!user){
                  return res.status(400).json({msg:"This does not exist."})
                 }
-                const access_token = createAccessToken({ id: result.id });
-                
+                const access_token = createAccessToken({id:result.id})
+
                 res.json({
-                  access_token,
-                  user
-              });
-          });
+                    access_token,
+                    user
+                })
+              })
              
         }catch(err){
           console.log(err);

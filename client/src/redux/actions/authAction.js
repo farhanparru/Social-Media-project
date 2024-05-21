@@ -9,9 +9,8 @@ import valid from "../../utlis/valid"
 export const login = (data)=>async (dispatch) => {
    try{
     dispatch({type:GLOBALTYPES.ALERT,payload:{loading:true}})
-
     const res = await postDataAPI('login',data)
-    console.log(res);
+    console.log( data,"haiii");
     dispatch({
       type:GLOBALTYPES.AUTH,
       payload:{
@@ -27,15 +26,14 @@ export const login = (data)=>async (dispatch) => {
     }
   })
 
-   }catch(error){
-
-    console.log(error);
-
-    dispatch({
+   }catch(err){    
+   
+  
+    dispatch({       
      type:GLOBALTYPES.ALERT,
-     payload:{  
-     error:error.response.data.msg
-    }
+     payload:{
+      error: err.response.data.msg
+    }        
     })
    }
  }
@@ -44,6 +42,7 @@ export const login = (data)=>async (dispatch) => {
 // Request failed with status code 400
  export const refreshToken = () => async(dispatch)=>{
   const firstlogin = localStorage.getItem("firstlogin")
+  
   if(firstlogin){
       dispatch({type:GLOBALTYPES.ALERT,payload:{loading:true}})
       try{
@@ -55,7 +54,7 @@ export const login = (data)=>async (dispatch) => {
               user: res.data.user
           }
       });
-   dispatch({type:GLOBALTYPES.ALERT,payload:{} })
+      dispatch({type:GLOBALTYPES.ALERT,payload:{} })
 
       }catch(error){  
         console.log(error);
