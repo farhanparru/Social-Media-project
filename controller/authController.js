@@ -141,7 +141,6 @@ module.exports = {
           }      
   
              jwt.verify(rf_token,process.env.REFRESH_TOKEN_SCCRET,async(err,result)=>{
-         
                 if(err) return res.status(400).json({msg:"Please login now."})
                 
                 const  user = await Users.findById(result.id).select("-password")
@@ -150,13 +149,13 @@ module.exports = {
                 if(!user){
                  return res.status(400).json({msg:"This does not exist."})
                 }
-                const access_token = createAccessToken({id:result.id})
-
+                const access_token = createAccessToken({ id: result.id });
+                
                 res.json({
-                    access_token,
-                    user
-                })
-              })
+                  access_token,
+                  user
+              });
+          });
              
         }catch(err){
           console.log(err);
