@@ -8,8 +8,6 @@ export const getDataAPI = async (url, token) => {
 }
 
 
-
-
 export const postDataAPI = async (url, post, token) => {
     const res = await axios.post(`https://api.world-network.site/api/${url}`, post, {
         headers: { Authorization: token },
@@ -19,9 +17,6 @@ export const postDataAPI = async (url, post, token) => {
     return res; 
 }    
         
-
-   
-
 export const putDataAPI = async (url,post,token)=>{  
     const res = await axios.put(`https://api.world-network.site/api/${url}`, post, {
         headers: { Authorization: token }
