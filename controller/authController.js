@@ -9,7 +9,7 @@ const  createAccessToken = (payload)=>{
 }
 
 const createRefreshToken = (payload)=>{
-  return jwt.sign(payload,process.env.REFRESH_TOKEN_SCCRET,{expiresIn:'30d'})
+  return jwt.sign(payload,process.env.REFRESH_TOKEN_SECRET,{expiresIn:'30d'})
      
 }
 
@@ -140,7 +140,7 @@ module.exports = {
               return res.status(401).json({ msg: "Please login now." });
           }      
   
-             jwt.verify(rf_token,process.env.REFRESH_TOKEN_SCCRET,async(err,result)=>{
+             jwt.verify(rf_token,process.env.REFRESH_TOKEN_SECRET,async(err,result)=>{
          
                 if(err) return res.status(400).json({msg:"Please login now."})
                 
