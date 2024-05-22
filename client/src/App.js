@@ -40,7 +40,7 @@ function App() {
     dispatch(refreshToken());
 
     
-    const socket = io('https://your-backend-url', { 
+    const socket = io('https://api.world-network.site', { 
       withCredentials: true
     });
     dispatch({type: GLOBALTYPES.SOCKET, payload: socket})
