@@ -31,12 +31,13 @@ app.use(cookieParser());
 
   // Initialize Socket.IO with CORS
  const http = require('http').createServer(app)
+
  const io = require('socket.io')(http,{
-   cors:{
-    origin: ["https://www.world-network.site"], 
-    methods: ["GET", "POST"],
-    credentials: true
-   }
+       cors: {
+        origin: ["https://www.world-network.site"],
+        methods: ["GET", "POST"],
+        credentials: true
+    }
  })
 
  

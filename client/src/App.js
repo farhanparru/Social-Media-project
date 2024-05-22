@@ -40,7 +40,9 @@ function App() {
     dispatch(refreshToken());
 
     
-    const socket = io()
+    const socket = io('https://your-backend-url', { 
+      withCredentials: true
+    });
     dispatch({type: GLOBALTYPES.SOCKET, payload: socket})
     return () => socket.close()
   }, [dispatch]);

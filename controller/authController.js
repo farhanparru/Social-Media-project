@@ -135,7 +135,7 @@ module.exports = {
         try{ 
 
             const rf_token = req.cookies.refreshtoken  
-            console.log("No refresh token provided",rf_token);    
+            // console.log("No refresh token provided",rf_token);    
             if (!rf_token) {
               return res.status(401).json({ msg: "Please login now." });
           }      
