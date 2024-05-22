@@ -2,10 +2,11 @@
   const express = require('express')
   const mongoose = require('mongoose')
   const cors = require('cors')
+  const { Server } = require('socket.io');
   const cookieParser = require('cookie-parser')
   const SocketServer = require('./socketServer')
   const {ExpressPeerServer} = require('peer')
-
+  const { createServer } = require('http');
 
 // mongoDb Conncted functions
 mongoose.connect("mongodb+srv://shaminmuhammad116:Parru1234@cluster0.imbsnlg.mongodb.net/Network?retryWrites=true&w=majority", {    
@@ -30,16 +31,15 @@ app.use(cookieParser());
 
 
   // Initialize Socket.IO with CORS
- const http = require('http').createServer(app)
+  const httpServer = createServer(app);
 
- const io = require('socket.io')(http,{
-       cors: {
-        origin: ["https://www.world-network.site"],
-        methods: ["GET", "POST"],
-        credentials: true
+  const io = new Server(httpServer, {
+    cors: {
+      origin: ["https://www.world-network.site"],
+      methods: ["GET", "POST"],
+      credentials: true
     }
- })
-
+  });
  
  io.on('connection', socket => {
   SocketServer(socket) 
@@ -47,7 +47,7 @@ app.use(cookieParser());
 
 
 // Create PeerServer for WebRTC
- ExpressPeerServer(http, {path: '/'})
+ ExpressPeerServer(httpServer, {path: '/'})
 
 
  //Routres
@@ -61,6 +61,6 @@ app.use(cookieParser());
 
   const port = process.env.PORT || 4000
 
-  http.listen(port,()=>{
+  httpServer.listen(port,()=>{
      console.log(`Server is runing on port ,port${port}`);
   })   
