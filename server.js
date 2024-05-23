@@ -41,10 +41,15 @@ app.use(cookieParser());
     }
   });
  
- io.on('connection', socket => {
-  SocketServer(socket) 
- })
-
+  io.on('connection', (socket) => {
+    console.log('New client connected');
+    SocketServer(socket);
+    
+    socket.on('disconnect', () => {
+      console.log('Client disconnected');
+    });
+  });
+  
 
 // Create PeerServer for WebRTC
  ExpressPeerServer(httpServer, {path: '/'})

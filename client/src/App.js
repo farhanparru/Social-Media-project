@@ -37,13 +37,28 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(refreshToken());
- 
-    const socket = io()
-    dispatch({type: GLOBALTYPES.SOCKET, payload: socket})
-    return () => socket.close()
+    try {
+      const socket = io('https://api.world-network.site', {
+        transports: ['websocket'],
+        secure: true,
+      });
+      
+      socket.on('connect', () => {
+        console.log('Socket connected:', socket.id);
+      });
+      
+      socket.on('connect_error', (err) => {
+        console.error('Socket connection error:', err);
+      });
+  
+      dispatch({ type: GLOBALTYPES.SOCKET, payload: socket });
+      dispatch(refreshToken());
+      return () => socket.close();
+    } catch (error) {
+      console.error('Socket initialization error:', error);
+    }
   }, [dispatch]);
-
+  
 
 
   useEffect(()=>{
