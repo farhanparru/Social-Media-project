@@ -74,8 +74,8 @@ export const updateProfileUser = ({userData,avatar,auth}) => async (dispatch)=>{
        payload:{
          ...auth,
          user:{
-            ...auth.user, ...userData,
-            avatar:avatar ? media[0].url : auth.user.avatar,
+         ...auth.user, ...userData,
+        avatar:avatar ? media[0].url : auth.user.avatar,
            
          }
        }
@@ -86,14 +86,13 @@ export const updateProfileUser = ({userData,avatar,auth}) => async (dispatch)=>{
   
     }catch(err){
         dispatch({
-            type:GLOBALTYPES.ALERT,
-             payload:{
-                error:err.response?.data.msg
-            }
-            });
-          
-    }
-}    
+        type:GLOBALTYPES.ALERT,
+        payload:{
+        error:err.response.data.msg
+         }
+         });  
+      }
+   }    
 
 export const follow = ({users,user,auth,socket}) => async (dispatch) =>{
     let newUser
