@@ -97,10 +97,8 @@ export const likePost = ({post,auth, socket}) => async (dispatch)=>{
  
 
    try {
-
-     await patchDataAPI(`post/${post._id}/like`,null, auth.token)
-    
-      
+    const res =  await patchDataAPI(`post/${post._id}/like`,null, auth.token)  
+    console.log(res);
    } catch (err) {
     dispatch({
       type:GLOBALTYPES.ALERT,
