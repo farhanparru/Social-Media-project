@@ -24,11 +24,17 @@ export const putDataAPI = async (url, post, token) => {
 }
 
 export const patchDataAPI = async (url, post, token) => {
-    const res = await axios.patch(`https://api.world-network.site/api/${url}`,post, {
-        headers: { Authorization: token}
-    })
-    return res;
-}
+    try {
+        const res = await axios.patch(`https://api.world-network.site/api/${url}`, post, {
+            headers: { Authorization: token }
+        });
+        return res;
+    } catch (err) {
+        console.error('API call error:', err);
+        throw err;
+    }
+};
+
 
 
 export const deleteDataAPI = async (url,token)=>{

@@ -30,9 +30,14 @@ const navigate = useNavigate()
  }
 
 
- const handleCopyLink = () =>{
-  navigator.clipboard.writeText(`${BASE_URL}/post/${post._id}`)
- }
+ const handleCopyLink = () => {
+  if (post.image) {
+    navigator.clipboard.writeText(post.image);
+  } else {
+    navigator.clipboard.writeText(`${BASE_URL}/post/${post._id}`);
+  }
+};
+
 
   return (
     <div className='card_header'>

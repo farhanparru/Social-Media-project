@@ -22,10 +22,6 @@ import {ToastContainer} from 'react-toastify'
 import Coversation from './pages/messages/[id]';
 import CallModal from './component/messages/CallModal';
 import Peer  from 'peerjs'
-
-
-
-
 import io from 'socket.io-client'
 import { GLOBALTYPES } from './redux/actions/globalTypes';
 import SocketClint from './SocketClint'
