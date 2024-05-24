@@ -24,15 +24,12 @@ export const putDataAPI = async (url, post, token) => {
 }
 
 export const patchDataAPI = async (url, post, token) => {
-    try {
-        const res = await axios.patch(`https://api.world-network.site/api/${url}`, post, {
-            headers: { Authorization: token }
-        });
-        return res.data; // Return only the data
-    } catch (err) {
-        throw new Error(err.response.data.msg || err.message);
-    }
-};
+    const res = await axios.patch(`https://api.world-network.site/api/${url}`,post, {
+        headers: { Authorization: token}
+    })
+    return res;
+}
+
 
 export const deleteDataAPI = async (url,token)=>{
     const res = await axios.delete(`https://api.world-network.site/api/${url}`, {
