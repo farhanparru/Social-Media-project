@@ -28,14 +28,11 @@ export const patchDataAPI = async (url, post, token) => {
         const res = await axios.patch(`https://api.world-network.site/api/${url}`, post, {
             headers: { Authorization: token }
         });
-        return res;
+        return res.data; // Return only the data
     } catch (err) {
-        console.error('API call error:', err);
-        throw err;
+        throw new Error(err.response.data.msg || err.message);
     }
 };
-
-
 
 export const deleteDataAPI = async (url,token)=>{
     const res = await axios.delete(`https://api.world-network.site/api/${url}`, {

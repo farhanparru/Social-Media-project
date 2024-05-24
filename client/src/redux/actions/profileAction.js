@@ -119,8 +119,6 @@ export const follow = ({users,user,auth,socket}) => async (dispatch) =>{
 
 try{
  const res = await patchDataAPI(`user/${user._id}/follow`,null,auth.token)
- console.log(res);
- 
  socket.emit('follow',res.data.newUser)
 }catch(err){
     dispatch({

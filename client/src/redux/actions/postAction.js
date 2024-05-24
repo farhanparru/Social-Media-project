@@ -90,45 +90,37 @@ export const POST_TYPES = {
     }
 }
 
-export const likePost = ({post,auth, socket}) => async (dispatch)=>{
-   const newPost = {...post,likes:[...post.likes,auth.user]}
-   dispatch({type: POST_TYPES.UPDATE_POST,payload: newPost})
-   socket.emit('likePost', newPost)
- 
-
-   try {
-
-     await patchDataAPI(`post/${post._id}/like`,null, auth.token)
-    
-      
-   } catch (err) {
-    dispatch({
-      type:GLOBALTYPES.ALERT,
-      payload:{error:err.response.data.msg}
-  })
-    
-   }
-}
-
-export const unLikePost = ({post,auth,socket}) => async (dispatch)=>{
-  
-  const newPost = {...post,likes: post.likes.filter(like => like._id !== auth.user._id)}
-  dispatch({type: POST_TYPES.UPDATE_POST,payload: newPost})
-  socket.emit('unlike',newPost)
-
-
+export const likePost = ({ post, auth, socket }) => async (dispatch) => {
   try {
-    await patchDataAPI(`post/${post._id}/unlike`,null, auth.token) 
-   
-
+      const res = await patchDataAPI(`post/${post._id}/like`, null, auth.token);
+      if (res.data && res.data.newPost) {
+          socket.emit('likePost', res.data.newPost);
+      } else {
+          throw new Error("Like data not received from server");
+      }
   } catch (err) {
-   dispatch({
-     type:GLOBALTYPES.ALERT,
-     payload:{error:err.response.data.msg}
- })
-   
+      dispatch({
+          type: GLOBALTYPES.ALERT,
+          payload: { error: err.message }
+      });
   }
-}
+};
+export const unLikePost = ({ post, auth, socket }) => async (dispatch) => {
+  try {
+      const res = await patchDataAPI(`post/${post._id}/unlike`, null, auth.token);
+      if (res.data && res.data.newPost) {
+          socket.emit('unLikePost', res.data.newPost);
+      } else {
+          throw new Error("Unlike data not received from server");
+      }
+  } catch (err) {
+      dispatch({
+          type: GLOBALTYPES.ALERT,
+          payload: { error: err.message }
+      });
+  }
+};
+
 
 export const getPost = ({detailPost, id ,auth}) => async (dispatch) =>{
    if(detailPost.every(post => post._id !== id)){
