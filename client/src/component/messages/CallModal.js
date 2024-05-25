@@ -100,46 +100,10 @@ const CallModal = () => {
   const playStream = (tag, stream) => {
     let video = tag;
     video.srcObject = stream;
-    var playPromise = video.play();
-  
-    if (playPromise !== undefined) {
-      playPromise.then(_ => {
-        // Automatic playback started!
-        // Show playing UI.
-      })
-      .catch(error => {
-        // Auto-play was prevented
-        // Show paused UI.
-      });
-    }
-  }    
+    video.play()
+}
 
   
-
-//   const playStream = (tag, stream) => {
-//     let video = tag;
-//     video.srcObject = stream;
-    
-//     // Listen for the 'loadedmetadata' event before calling 'play()'
-//     video.addEventListener('loadedmetadata', () => {
-//         let playPromise = video.play();
-        
-//         // Check if 'play()' returns a promise and handle it
-//         if (playPromise !== undefined) {
-//             playPromise.then(_ => {
-//                 // Automatic playback started!
-//             }).catch(error => {
-//                 console.error('Playback error:', error);
-//             });
-//         }
-//     });
-
-//     console.log('playStream called');
-// }
-
-
-  
-
   // Answer Call
   const handleAnswer = () => {
     openStream(call.video).then(stream => {
