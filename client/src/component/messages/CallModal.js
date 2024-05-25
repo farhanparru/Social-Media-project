@@ -96,47 +96,47 @@ const CallModal = () => {
   }
 
   // issue streaming
+  // const playStream = (tag, stream) => {
+  //   let video = tag;
+  //   video.srcObject = stream;
+  
+  //   let playPromise = video.play();
+  
+  //   if (playPromise !== undefined) {
+  //     playPromise.then(() => {
+  //       console.log('Playback started successfully');
+  //     }).catch(error => {
+  //       if (document.body.contains(video)) {
+  //         console.error('Play was interrupted:', error);
+  //       } else {
+  //         console.warn('Video element was removed before playback could start');
+  //       }
+  //     });
+  //   }
+  // };
+  
+  
+
   const playStream = (tag, stream) => {
     let video = tag;
     video.srcObject = stream;
-  
-    let playPromise = video.play();
-  
-    if (playPromise !== undefined) {
-      playPromise.then(() => {
-        console.log('Playback started successfully');
-      }).catch(error => {
-        if (document.body.contains(video)) {
-          console.error('Play was interrupted:', error);
-        } else {
-          console.warn('Video element was removed before playback could start');
-        }
-      });
-    }
-  };
-  
-  
-
-//   const playStream = (tag, stream) => {
-//     let video = tag;
-//     video.srcObject = stream;
     
-//     // Listen for the 'loadedmetadata' event before calling 'play()'
-//     video.addEventListener('loadedmetadata', () => {
-//         let playPromise = video.play();
+    // Listen for the 'loadedmetadata' event before calling 'play()'
+    video.addEventListener('loadedmetadata', () => {
+        let playPromise = video.play();
         
-//         // Check if 'play()' returns a promise and handle it
-//         if (playPromise !== undefined) {
-//             playPromise.then(_ => {
-//                 // Automatic playback started!
-//             }).catch(error => {
-//                 console.error('Playback error:', error);
-//             });
-//         }
-//     });
+        // Check if 'play()' returns a promise and handle it
+        if (playPromise !== undefined) {
+            playPromise.then(_ => {
+                // Automatic playback started!
+            }).catch(error => {
+                console.error('Playback error:', error);
+            });
+        }
+    });
 
-//     console.log('playStream called');
-// }
+    console.log('playStream called');
+}
 
 
   
