@@ -99,17 +99,23 @@ const CallModal = () => {
   const playStream = (tag, stream) => {
     let video = tag;
     video.srcObject = stream;
+  
     let playPromise = video.play();
   
     if (playPromise !== undefined) {
       playPromise.then(() => {
-   
+        console.log('Playback started successfully');
       }).catch(error => {
-        console.error('Play was interrupted:', error);
-      
-      });      
-    }  
-  }    
+        if (document.body.contains(video)) {
+          console.error('Play was interrupted:', error);
+        } else {
+          console.warn('Video element was removed before playback could start');
+        }
+      });
+    }
+  };
+  
+  
 
 //   const playStream = (tag, stream) => {
 //     let video = tag;
