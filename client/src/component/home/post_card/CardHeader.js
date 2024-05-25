@@ -43,13 +43,13 @@ const navigate = useNavigate()
     <div className='card_header'>
       <div className='d-flex'>
       <Avatar src={post.user.avatar} size="big-avatar" />
-      <div className='card_name'>
+      <div className='card_name ml-5'>
        <h6 className='m-0'>
          <Link to={`/profile/${post.user._id}`} className='text-dark'>
          {post.user.username}
          </Link>
        </h6>
-       <small className='text-muted not-italic text-2xl'>
+       <small className='text-muted not-italic text-xl'>
         {moment(post.createdAt).fromNow()}
        </small>
       </div>
