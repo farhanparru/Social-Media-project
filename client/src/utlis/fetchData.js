@@ -25,9 +25,7 @@ export const putDataAPI = async (url, post, token) => {
 
 export const patchDataAPI = async (url, post, token) => {
     try{
-
-   
-    const res = await axios.patch(`/api/${url}`,post, {
+    const res = await axios.patch(`https://api.world-network.site/api/${url}`,post, {
         headers: { Authorization: token}
     })
     return res;

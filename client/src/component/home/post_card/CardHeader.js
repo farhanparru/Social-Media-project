@@ -49,7 +49,7 @@ const navigate = useNavigate()
          {post.user.username}
          </Link>
        </h6>
-       <small className='text-muted'>
+       <small className='text-muted not-italic text-2xl'>
         {moment(post.createdAt).fromNow()}
        </small>
       </div>
