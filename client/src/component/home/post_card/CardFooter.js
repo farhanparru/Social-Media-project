@@ -29,10 +29,8 @@ const CardFooter = ({post}) => {
  },[post.likes,auth.user._id ])
 
 //Likes
-  const  handleLike = async() =>{ 
+  const handleLike = async() =>{ 
     if(loadLike) return;
-  
-       
        setLoadLike(true)
        await dispatch(likePost({post, auth, socket}))
        setLoadLike(false)
@@ -40,7 +38,6 @@ const CardFooter = ({post}) => {
 
   const handleUnLike = async() =>{
     if(loadLike) return;
-    
     setLoadLike(true)
     await dispatch(unLikePost({post, auth,socket}))
     setLoadLike(false)
