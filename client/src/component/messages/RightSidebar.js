@@ -280,7 +280,7 @@ useEffect(()=>{
     }
     </div>
 
-    <form className='chat_input' onSubmit={handleSubmit} >
+    <form className='chat_input mr-5' onSubmit={handleSubmit} >
    <input type='text' placeholder='Enter Youre message'
    value={text} onChange={e => setText(e.target.value)}
    style={{
@@ -298,7 +298,7 @@ useEffect(()=>{
      />
    </div>
 
-   <div className='voice_message'>
+   <div className='voice_message w-7'>
    <FontAwesomeIcon icon={faMicrophone} className='text-primary' />
   </div>
 

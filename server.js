@@ -25,7 +25,8 @@ app.use(express.json());
 app.use(cors({
   origin: ["https://www.world-network.site"], // Update with your frontend URL
   methods: ["GET", "POST", "PATCH", "PUT", "DELETE"], // Add all necessary methods
-  credentials: true  // Enable CORS with credentials
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization']  // Enable CORS with credentials
 }));
 app.use(cookieParser());
 
@@ -34,7 +35,8 @@ app.use(cookieParser());
 app.options('*', cors({
   origin: ["https://www.world-network.site"],
   methods: ["GET", "POST", "PATCH", "PUT", "DELETE"],
-  credentials: true
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 
