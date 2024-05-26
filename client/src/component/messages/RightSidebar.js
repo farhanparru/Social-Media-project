@@ -14,7 +14,7 @@ import {
   deleteConverstion
 } from '../../redux/actions/messageActions'
 import LoadIcon from  '../../images/loading.gif'
-import { faImage, faFileAudio } from '@fortawesome/free-solid-svg-icons';
+import {  faMicrophone } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
@@ -299,7 +299,7 @@ useEffect(()=>{
    </div>
 
    <div className='voice_message'>
-   <FontAwesomeIcon icon="fa-regular fa-microphone" />
+   <FontAwesomeIcon icon={faMicrophone} className='text-primary' />
   </div>
 
 <button type="submit" className="material-icons" 
