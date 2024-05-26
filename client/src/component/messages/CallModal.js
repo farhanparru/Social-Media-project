@@ -52,7 +52,7 @@ const CallModal = () => {
 
     }
     
-  },[auth,dispatch])
+  },[auth,dispatch,socket])
 
   const handleEndCall = () => {
     tracks && tracks.forEach(track => track.stop())

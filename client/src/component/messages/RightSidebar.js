@@ -14,6 +14,9 @@ import {
   deleteConverstion
 } from '../../redux/actions/messageActions'
 import LoadIcon from  '../../images/loading.gif'
+import { faImage, faFileAudio } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 const RightSidebar = () => {
 const { auth,message,theme,socket,peer} = useSelector(state => state)
@@ -294,6 +297,10 @@ useEffect(()=>{
       multiple accept='image/*,video/*' onChange={handleChangeMedia}
      />
    </div>
+
+   <div className='voice_message'>
+    <FontAwesomeIcon icon={faFileAudio} className='text-primary' />
+  </div>
 
 <button type="submit" className="material-icons" 
    disabled={(text || media.length > 0) ? false : true}>

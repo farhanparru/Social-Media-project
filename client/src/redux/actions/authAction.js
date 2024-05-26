@@ -2,6 +2,7 @@ import { GLOBALTYPES } from "../actions/globalTypes"
 import { postDataAPI } from "../../utlis/fetchData"
 import { getDataAPi } from "../../utlis/fetchData"
 import valid from "../../utlis/valid"
+import axios from "axios"
 
 
 
@@ -10,7 +11,9 @@ export const login = (data)=>async (dispatch) => {
    try{
     dispatch({type:GLOBALTYPES.ALERT,payload:{loading:true}})
 
-    const res = await postDataAPI('login',data)
+    const res = await axios.post('https://api.world-network.site/api/login', data);
+    localStorage.setItem('firstlogin', true);
+    localStorage.setItem('refreshToken', res.data.refresh_token)
 
     dispatch({
       type:GLOBALTYPES.AUTH,
@@ -41,12 +44,13 @@ export const login = (data)=>async (dispatch) => {
 // Request failed with status code 400
  export const refreshToken = () => async(dispatch)=>{
   const firstlogin = localStorage.getItem("firstlogin")
+  const refreshToken = localStorage.getItem('refreshToken');
 
-  if(firstlogin){
+  if (firstlogin && refreshToken) {
       dispatch({type:GLOBALTYPES.ALERT,payload:{loading:true}})
 
       try{
-        const res = await postDataAPI('refresh_token');
+        const res = await postDataAPI('refresh_token', { refreshToken }); // Send refresh token in the request body
         console.log("Refresh Token Response:", res.data); 
 
         dispatch({
@@ -59,8 +63,8 @@ export const login = (data)=>async (dispatch) => {
    dispatch({type:GLOBALTYPES.ALERT,payload:{} })
 
       }catch(error){  
-       console.error("Refresh Token Error:", error.response);
-       
+        console.error("Refresh Token Error:", error.response); // Log error response
+
         dispatch({
           type:GLOBALTYPES.ALERT,
        payload:{
@@ -215,18 +219,23 @@ export const ForgotPassword = (id, token) => async (dispatch) => {
 // }
   
 
-export const logout = ()=> async (dispatch)=>{
-  try{
-  localStorage.removeItem('firstlogin')
-  await postDataAPI('logout')
-  window.location.href = "/"
-  }catch(error){
-    dispatch({
-      type: GLOBALTYPES.ALERT,
-      payload: {
-        error: error.response.data.message 
-      }
-    });
-  }
+export const logout = () => async (dispatch) => {
+  try {
+      // Remove items from local storage
+      localStorage.removeItem('firstlogin');
+      localStorage.removeItem('refreshToken');
 
-}
+      // Make API call to logout endpoint (if needed)
+      await postDataAPI('logout');
+
+      // Redirect to home page
+      window.location.href = "/";
+  } catch (error) {
+      dispatch({
+          type: GLOBALTYPES.ALERT,
+          payload: {
+              error: error.response?.data?.message || "Logout failed. Please try again.",
+          },
+      });
+  }
+};

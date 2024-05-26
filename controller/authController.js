@@ -4,14 +4,14 @@ const jwt = require('jsonwebtoken')
 const nodemailer = require("nodemailer")
 
 
-const  createAccessToken = (payload)=>{
-    return jwt.sign(payload,process.env.ACCESS_TOKEN_SECRET,{expiresIn:'1d'})
-}
+const createAccessToken = (payload) => {
+  return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' }); // Access token expires in 15 minutes
+};
 
-const createRefreshToken = (payload)=>{
-  return jwt.sign(payload,process.env.REFRESH_TOKEN_SECRET,{expiresIn:'30d'})
-     
-}
+const createRefreshToken = (payload) => {
+  return jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '30d' }); // Refresh token expires in 30 days
+};
+
 
 // email Config
 
@@ -57,18 +57,12 @@ module.exports = {
               const access_token = createAccessToken({id:newUser._id})
               const refresh_token = createRefreshToken({id:newUser._id})
 
-              res.cookie('refreshtoken', refresh_token, {
-                httpOnly: true,
-                path: '/api/refresh_token',
-                maxAge: 30*24*60*60*1000 // 30days
-            })
-       
-             await newUser.save()
-                           
-      
+             await newUser.save()   
+
             res.json({
                  msg: 'Register Successfully' ,
                  access_token,
+                 refresh_token,
                  user:{
                     ...newUser._doc,
                       password:''
@@ -101,21 +95,15 @@ module.exports = {
          const access_token = createAccessToken({id: user._id})
          const refresh_token = createRefreshToken({id: user._id})
 
-         res.cookie('refreshtoken', refresh_token, {
-          httpOnly: true,
-          path: '/api/refresh_token',
-          maxAge: 30*24*60*60*1000, // 30days
-          secure: true, // Ensure true if you're using HTTPS
-          sameSite: 'None',
-      })
          res.json({
           msg: 'Login Success!',
           access_token,
+          refresh_token, // Include the refresh token in the response body
           user: {
               ...user._doc,
               password: ''
           }
-      })
+      });
 
         }catch(err){
             return res.status(500).json({msg: err.message})
@@ -134,7 +122,7 @@ module.exports = {
      generateAccessToken:async(req,res)=>{
         try{ 
 
-            const rf_token = req.cookies.refreshtoken  
+            const {refreshtoken: rf_token} = req.body; 
             // console.log("No refresh token provided",rf_token);    
             if (!rf_token) {
               return res.status(401).json({ msg: "Please login now." });
