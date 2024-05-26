@@ -299,7 +299,7 @@ useEffect(()=>{
    </div>
 
    <div className='voice_message'>
-    <FontAwesomeIcon icon={faFileAudio} className='text-primary' />
+   <FontAwesomeIcon icon="fa-regular fa-microphone" />
   </div>
 
 <button type="submit" className="material-icons" 
