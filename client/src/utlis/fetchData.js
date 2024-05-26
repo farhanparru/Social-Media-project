@@ -9,12 +9,19 @@ export const getDataAPI = async (url, token) => {
 
 
 export const postDataAPI = async (url, post, token) => {
-    const res = await axios.post(`https://api.world-network.site/api/${url}`, post, {
-        headers: { Authorization: token ? `Bearer ${token}` : '' } 
-    })
-    return res;
-}
-
+    try {
+      // Make API request
+      const res = await axios.post(`https://api.world-network.site/api/${url}`, post, {
+        headers: { Authorization: token }
+      });
+      console.log("API Response:", res.data); // Log response
+      return res;
+    } catch (error) {
+      console.error("API Call Error:", error.response); // Log error response
+      throw error;
+    }
+  };
+  
         
 export const putDataAPI = async (url, post, token) => {
     const res = await axios.put(`https://api.world-network.site/api/${url}`, post, {

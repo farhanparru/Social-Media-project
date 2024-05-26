@@ -41,10 +41,14 @@ export const login = (data)=>async (dispatch) => {
 // Request failed with status code 400
  export const refreshToken = () => async(dispatch)=>{
   const firstlogin = localStorage.getItem("firstlogin")
+
   if(firstlogin){
       dispatch({type:GLOBALTYPES.ALERT,payload:{loading:true}})
+
       try{
-        const res = await postDataAPI('refresh_token')
+        const res = await postDataAPI('refresh_token');
+        console.log("Refresh Token Response:", res.data); 
+
         dispatch({
          type:GLOBALTYPES.AUTH,
          payload:{
@@ -55,7 +59,8 @@ export const login = (data)=>async (dispatch) => {
    dispatch({type:GLOBALTYPES.ALERT,payload:{} })
 
       }catch(error){  
-        console.log(error);
+       console.error("Refresh Token Error:", error.response);
+       
         dispatch({
           type:GLOBALTYPES.ALERT,
        payload:{
